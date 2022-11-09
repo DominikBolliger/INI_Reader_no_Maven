@@ -1,6 +1,9 @@
-package model;
+package application;
 
 import controller.INIReaderController;
+import model.Section;
+import model.SectionData;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;

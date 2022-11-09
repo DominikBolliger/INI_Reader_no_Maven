@@ -1,5 +1,6 @@
 package application;
 
+import controller.INIReaderController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -15,6 +16,7 @@ public class INIReaderApplication extends Application {
     private double xOffset = 0;
     private double yOffset = 0;
     private Scene mainScene;
+    private INIReader reader;
     public static Scene addSectionScene;
     public static Scene addKeyValueScene;
     public static Scene changeSectionScene;
@@ -27,14 +29,19 @@ public class INIReaderApplication extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
+        reader = new INIReader("asd", );
+
         FXMLLoader fxmlMain = new FXMLLoader(INIReaderApplication.class.getResource("/view/INIReader-view.fxml"));
         FXMLLoader fxmlAddSection = new FXMLLoader(INIReaderApplication.class.getResource("/view/AddSection-view.fxml"));
         FXMLLoader fxmlAddKeyValue = new FXMLLoader(INIReaderApplication.class.getResource("view/AddKeyValue-view.fxml"));
         FXMLLoader fxmlChangeSection = new FXMLLoader(INIReaderApplication.class.getResource("view/ChangeSection-view.fxml"));
         FXMLLoader fxmlChangeKeyValue = new FXMLLoader(INIReaderApplication.class.getResource("view/ChangeKeyValue-view.fxml"));
 
+        INIReaderController iniReaderController = fxmlMain.getController();
+        iniReaderController.setReader(reader);
+
         mainScene = new Scene(fxmlMain.load());
-//        addSectionScene = new Scene(fxmlAddSection.load());
+        addSectionScene = new Scene(fxmlAddSection.load());
 //        addKeyValueScene = new Scene(fxmlAddKeyValue.load());
 //        changeSectionScene = new Scene(fxmlChangeSection.load());
 //        changeKeyValueScene = new Scene(fxmlChangeKeyValue.load());

@@ -6,7 +6,7 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import model.INIReader;
+import application.INIReader;
 import model.Section;
 import model.SectionData;
 
@@ -29,10 +29,9 @@ public class INIReaderController {
 
     @FXML
     protected void initialize() {
-//        createListViewCellFactory();
-//        createBindings();
-//        reader = new INIReader("src/main/resources/data/opms.ini", this);
-//        reader.start();
+        createListViewCellFactory();
+        createBindings();
+        reader.start();
     }
 
     private void createBindings() {
@@ -119,4 +118,9 @@ public class INIReaderController {
     public void setLvKeyValue(ListView lvKeyValue) {
         this.lvKeyValue = lvKeyValue;
     }
+
+    public void setReader(INIReader reader){
+        this.reader = reader;
+    }
+
 }

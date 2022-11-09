@@ -1,0 +1,4 @@
+.child-container {
+    -fx-border-radius: 5 5 0 0;
+    -fx-background-radius: 5 5 0 0;
+}

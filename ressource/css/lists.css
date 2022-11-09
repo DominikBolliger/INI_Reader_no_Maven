@@ -1,0 +1,26 @@
+.list-view{
+    -fx-background-color: #C7D6B8;
+    -fx-background-insets: 0.1 0.1 0.1 0.1;
+    -fx-background-insets: 0.1 0.1 0.1 0.1;
+    -fx-background-radius: 0 0 0 0;
+}
+
+.list-cell:odd {
+    -fx-background-color: #C7D6B8;
+    -fx-control-inner-background: #C7D6B8;
+}
+
+.list-cell:even {
+    -fx-background-color: #C7D6B8;
+    -fx-control-inner-background: #C7D6B8;
+}
+
+.list-view:focused .list-cell:focused:odd {
+    -fx-background-color: #000000;
+    -fx-control-inner-background: #000000;
+}
+
+.list-view:focused .list-cell:focused:even {
+    -fx-background-color: #000000;
+    -fx-control-inner-background: #000000;
+}

@@ -1,0 +1,21 @@
+.control-button {
+    -fx-background-color:  #E3EADB;
+    -fx-background-insets: 0.1 0.1 0.1 0.1;
+    -fx-background-radius: 5 5 5 5;
+}
+
+.control-button:hover {
+    -fx-background-color: #325761;
+    -fx-text-fill: #FFFFFF;
+    /*-fx-border-color: #325761;*/
+    /*-fx-background-insets: 0.1 0.1 0.1 0.1;*/
+    /*-fx-background-radius: 5 5 5 5;*/
+}
+
+.control-button:pressed {
+    -fx-background-color:  #669933;
+    -fx-text-fill: #FFFFFF;
+    /*-fx-border-color: #669933;*/
+    /*-fx-background-insets: 0.1 0.1 0.1 0.1;*/
+    /*-fx-background-radius: 5 5 5 5;*/
+}

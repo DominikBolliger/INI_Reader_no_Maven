@@ -1,0 +1,14 @@
+.stage-button {
+    -fx-background-color:  #669933;
+    -fx-background-insets: 0.1 0.1 0.1 0.1;
+}
+
+.stage-button:hover {
+    -fx-background-color: #3c5b1c;
+    -fx-text-fill: #FFFFFF;
+}
+
+.stage-button:pressed {
+    -fx-background-color: #151f0a;
+    -fx-text-fill: #FFFFFF;
+}

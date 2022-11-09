@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" styleClass="root-container" stylesheets="@../../../css/root-container.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dofi.inireadergui.controller.AddKeyValueController">
+   <children>
+      <HBox fx:id="hBoxHeader" alignment="CENTER" style="-fx-background-color: #669933;" styleClass="child-container" stylesheets="@../../../css/child-container.css">
+         <children>
+            <ImageView pickOnBounds="true" smooth="false">
+               <image>
+                  <Image url="@../../../img/hub-round.png" />
+               </image>
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </ImageView>
+            <Label alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="25.0" style="-fx-background-color: #669933;" text="Change Key+Value" HBox.hgrow="ALWAYS">
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </Label>
+            <Button fx:id="btnClose" mnemonicParsing="false" onAction="#btnCloseClick" prefHeight="25.0" prefWidth="25.0" style="-fx-background-radius: 0 5 0 0;" styleClass="stage-button" stylesheets="@../../../css/stage-buttons.css" text="X" HBox.hgrow="ALWAYS" />
+         </children>
+         <VBox.margin>
+            <Insets bottom="1.0" left="2.0" right="2.0" top="2.0" />
+         </VBox.margin>
+      </HBox>
+      <VBox style="-fx-background-color: #A2BB88;">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" style="-fx-text-fill: #FFFFFF; -fx-background-radius: 0 0 5 5;" text="Key" VBox.vgrow="ALWAYS">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin></Label>
+            <TextField maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
+               <VBox.margin>
+                  <Insets left="10.0" right="10.0" top="10.0" />
+               </VBox.margin></TextField>
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="20.0" maxWidth="1.7976931348623157E308" style="-fx-text-fill: #FFFFFF;" text="Value">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin></Label>
+            <TextField layoutX="20.0" layoutY="47.0" maxWidth="1.7976931348623157E308">
+               <VBox.margin>
+                  <Insets left="10.0" right="10.0" top="10.0" />
+               </VBox.margin></TextField>
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="72.0" maxWidth="1.7976931348623157E308" style="-fx-text-fill: #FFFFFF;" text="Comment">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Label>
+            <TextArea prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+               <VBox.margin>
+                  <Insets left="10.0" right="10.0" top="10.0" />
+               </VBox.margin>
+            </TextArea>
+            <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="control-button" stylesheets="@../../../css/control-button.css" text="Change" VBox.vgrow="ALWAYS">
+               <VBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </VBox.margin></Button>
+         </children>
+         <VBox.margin>
+            <Insets bottom="2.0" left="2.0" right="2.0" top="1.0" />
+         </VBox.margin>
+      </VBox>
+   </children>
+</VBox>

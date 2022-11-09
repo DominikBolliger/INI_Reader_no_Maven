@@ -5,9 +5,9 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox alignment="CENTER" styleClass="root-container" stylesheets="@../../../css/root-container.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dofi.inireadergui.controller.AddSectionController">
+<VBox alignment="CENTER" styleClass="root-container" stylesheets="" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddSectionController">
    <children>
-      <HBox fx:id="hBoxHeader" alignment="CENTER" style="-fx-background-color: #669933;" styleClass="child-container" stylesheets="@../../../css/child-container.css">
+      <HBox fx:id="hBoxHeader" alignment="CENTER" style="-fx-background-color: #669933;" styleClass="child-container">
          <children>
             <ImageView pickOnBounds="true" smooth="false">
                <image>

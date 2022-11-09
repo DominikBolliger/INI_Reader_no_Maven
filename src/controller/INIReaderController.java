@@ -29,10 +29,10 @@ public class INIReaderController {
 
     @FXML
     protected void initialize() {
-        createListViewCellFactory();
-        createBindings();
-        reader = new INIReader("src/main/resources/data/opms.ini", this);
-        reader.start();
+//        createListViewCellFactory();
+//        createBindings();
+//        reader = new INIReader("src/main/resources/data/opms.ini", this);
+//        reader.start();
     }
 
     private void createBindings() {

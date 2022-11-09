@@ -27,21 +27,21 @@ public class INIReaderApplication extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlMain = new FXMLLoader(INIReaderApplication.class.getResource("view/INIReader-view.fxml"));
-        FXMLLoader fxmlAddSection = new FXMLLoader(INIReaderApplication.class.getResource("view/AddSection-view.fxml"));
+        FXMLLoader fxmlMain = new FXMLLoader(INIReaderApplication.class.getResource("/view/INIReader-view.fxml"));
+        FXMLLoader fxmlAddSection = new FXMLLoader(INIReaderApplication.class.getResource("/view/AddSection-view.fxml"));
         FXMLLoader fxmlAddKeyValue = new FXMLLoader(INIReaderApplication.class.getResource("view/AddKeyValue-view.fxml"));
         FXMLLoader fxmlChangeSection = new FXMLLoader(INIReaderApplication.class.getResource("view/ChangeSection-view.fxml"));
         FXMLLoader fxmlChangeKeyValue = new FXMLLoader(INIReaderApplication.class.getResource("view/ChangeKeyValue-view.fxml"));
 
         mainScene = new Scene(fxmlMain.load());
-        addSectionScene = new Scene(fxmlAddSection.load());
-        addKeyValueScene = new Scene(fxmlAddKeyValue.load());
-        changeSectionScene = new Scene(fxmlChangeSection.load());
-        changeKeyValueScene = new Scene(fxmlChangeKeyValue.load());
-        addSectionScene.setFill(Color.TRANSPARENT);
-        addKeyValueScene.setFill(Color.TRANSPARENT);
-        changeSectionScene.setFill(Color.TRANSPARENT);
-        changeKeyValueScene.setFill(Color.TRANSPARENT);
+//        addSectionScene = new Scene(fxmlAddSection.load());
+//        addKeyValueScene = new Scene(fxmlAddKeyValue.load());
+//        changeSectionScene = new Scene(fxmlChangeSection.load());
+//        changeKeyValueScene = new Scene(fxmlChangeKeyValue.load());
+//        addSectionScene.setFill(Color.TRANSPARENT);
+//        addKeyValueScene.setFill(Color.TRANSPARENT);
+//        changeSectionScene.setFill(Color.TRANSPARENT);
+//        changeKeyValueScene.setFill(Color.TRANSPARENT);
         mainScene.setFill(Color.TRANSPARENT);
 
         changeStage = new Stage();

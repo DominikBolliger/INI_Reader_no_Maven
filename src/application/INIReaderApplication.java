@@ -1,6 +1,6 @@
 package application;
 
-import controller.INIReaderController;
+import controller.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -15,49 +15,97 @@ public class INIReaderApplication extends Application {
 
     private double xOffset = 0;
     private double yOffset = 0;
-    private Scene mainScene;
     private INIReader reader;
+    public static Scene mainScene;
     public static Scene addSectionScene;
     public static Scene addKeyValueScene;
     public static Scene changeSectionScene;
     public static Scene changeKeyValueScene;
     public static Stage changeStage;
+    public FXMLLoader fxmlMain;
+    public FXMLLoader fxmlAddSection;
+    public FXMLLoader fxmlChangeSection;
+    public FXMLLoader fxmlAddKeyValue;
+    public FXMLLoader fxmlChangeKeyValue;
+    public INIReaderController iniReaderController;
+    public AddSectionController addSectionController;
+    public ChangeSectionController changeSectionController;
+    public AddKeyValueController addKeyValueController;
+    public ChangeKeyValueController changeKeyValueController;
 
     public static void main(String[] args) {
         launch();
     }
 
     @Override
-    public void start(Stage stage) throws IOException {
-        reader = new INIReader("asd", );
+    public void start(Stage stage) {
 
-        FXMLLoader fxmlMain = new FXMLLoader(INIReaderApplication.class.getResource("/view/INIReader-view.fxml"));
-        FXMLLoader fxmlAddSection = new FXMLLoader(INIReaderApplication.class.getResource("/view/AddSection-view.fxml"));
-        FXMLLoader fxmlAddKeyValue = new FXMLLoader(INIReaderApplication.class.getResource("view/AddKeyValue-view.fxml"));
-        FXMLLoader fxmlChangeSection = new FXMLLoader(INIReaderApplication.class.getResource("view/ChangeSection-view.fxml"));
-        FXMLLoader fxmlChangeKeyValue = new FXMLLoader(INIReaderApplication.class.getResource("view/ChangeKeyValue-view.fxml"));
+        reader = INIReaderController.createIni(iniReaderController);
+        loadScenes();
+        loadControllers();
 
-        INIReaderController iniReaderController = fxmlMain.getController();
-        iniReaderController.setReader(reader);
-
-        mainScene = new Scene(fxmlMain.load());
-        addSectionScene = new Scene(fxmlAddSection.load());
-//        addKeyValueScene = new Scene(fxmlAddKeyValue.load());
-//        changeSectionScene = new Scene(fxmlChangeSection.load());
-//        changeKeyValueScene = new Scene(fxmlChangeKeyValue.load());
-//        addSectionScene.setFill(Color.TRANSPARENT);
-//        addKeyValueScene.setFill(Color.TRANSPARENT);
-//        changeSectionScene.setFill(Color.TRANSPARENT);
-//        changeKeyValueScene.setFill(Color.TRANSPARENT);
-        mainScene.setFill(Color.TRANSPARENT);
-
-        changeStage = new Stage();
-        changeStage.initStyle(StageStyle.TRANSPARENT);
+        setReaders();
+        setScenesTransparaent();
 
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.setScene(mainScene);
         stage.show();
+
+        changeStage = new Stage();
+        changeStage.initStyle(StageStyle.TRANSPARENT);
+
+        setWindowMovable(stage);
+    }
+
+    private void setWindowMovable(Stage stage) {
         makeWindowMoveable(mainScene.getRoot(), stage);
+        makeWindowMoveable(addSectionScene.getRoot(), changeStage);
+        makeWindowMoveable(changeSectionScene.getRoot(), changeStage);
+        makeWindowMoveable(addKeyValueScene.getRoot(), changeStage);
+        makeWindowMoveable(changeKeyValueScene.getRoot(), changeStage);
+    }
+
+    private void setScenesTransparaent() {
+        mainScene.setFill(Color.TRANSPARENT);
+        addSectionScene.setFill(Color.TRANSPARENT);
+        changeSectionScene.setFill(Color.TRANSPARENT);
+        addKeyValueScene.setFill(Color.TRANSPARENT);
+        changeKeyValueScene.setFill(Color.TRANSPARENT);
+    }
+
+    private void setReaders() {
+        iniReaderController.setReader(reader);
+        addSectionController.setReader(reader);
+        changeSectionController.setReader(reader);
+        addKeyValueController.setReader(reader);
+        changeKeyValueController.setReader(reader);
+    }
+
+    private void loadControllers() {
+        iniReaderController = fxmlMain.getController();
+        addSectionController = fxmlAddSection.getController();
+        changeSectionController = fxmlChangeSection.getController();
+        addKeyValueController = fxmlAddKeyValue.getController();
+        changeKeyValueController = fxmlChangeKeyValue.getController();
+    }
+
+    private void loadScenes() {
+        fxmlMain = new FXMLLoader(INIReaderApplication.class.getResource("/view/INIReader-view.fxml"));
+        fxmlAddSection = new FXMLLoader(INIReaderApplication.class.getResource("/view/AddSection-view.fxml"));
+        fxmlChangeSection = new FXMLLoader(INIReaderApplication.class.getResource("/view/ChangeSection-view.fxml"));
+        fxmlAddKeyValue = new FXMLLoader(INIReaderApplication.class.getResource("/view/AddKeyValue-view.fxml"));
+        fxmlChangeKeyValue = new FXMLLoader(INIReaderApplication.class.getResource("/view/ChangeKeyValue-view.fxml"));
+
+        try {
+            mainScene = new Scene(fxmlMain.load());
+            addSectionScene = new Scene(fxmlAddSection.load());
+            changeSectionScene = new Scene(fxmlChangeSection.load());
+            addKeyValueScene = new Scene(fxmlAddKeyValue.load());
+            changeKeyValueScene = new Scene(fxmlChangeKeyValue.load());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     private void makeWindowMoveable(Node root, Stage primaryStage) {

@@ -5,13 +5,13 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox alignment="CENTER" styleClass="root-container" stylesheets="@../../../css/root-container.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dofi.inireadergui.controller.AddKeyValueController">
+<VBox alignment="CENTER" styleClass="root-container" stylesheets="@../resource/css/root-container.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddKeyValueController">
    <children>
-      <HBox fx:id="hBoxHeader" alignment="CENTER" style="-fx-background-color: #669933;" styleClass="child-container" stylesheets="@../../../css/child-container.css">
+      <HBox fx:id="hBoxHeader" alignment="CENTER" style="-fx-background-color: #669933;" styleClass="child-container" stylesheets="@../resource/css/child-container.css">
          <children>
-            <ImageView pickOnBounds="true" smooth="false">
+            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" smooth="false">
                <image>
-                  <Image url="@../../../img/hub-round.png" />
+                  <Image url="@../resource/img/hub-round-big.png" />
                </image>
                <HBox.margin>
                   <Insets left="10.0" />
@@ -22,7 +22,7 @@
                   <Insets left="10.0" />
                </padding>
             </Label>
-            <Button fx:id="btnClose" mnemonicParsing="false" onAction="#btnCloseClick" prefHeight="25.0" prefWidth="25.0" style="-fx-background-radius: 0 5 0 0;" styleClass="stage-button" stylesheets="@../../../css/stage-buttons.css" text="X" HBox.hgrow="ALWAYS" />
+            <Button fx:id="btnClose" mnemonicParsing="false" onAction="#btnCloseClick" prefHeight="25.0" prefWidth="25.0" style="-fx-background-radius: 0 5 0 0;" styleClass="stage-button" stylesheets="@../resource/css/stage-buttons.css" text="X" HBox.hgrow="ALWAYS" />
          </children>
          <VBox.margin>
             <Insets bottom="1.0" left="2.0" right="2.0" top="2.0" />
@@ -30,7 +30,7 @@
       </HBox>
       <VBox style="-fx-background-color: #A2BB88; -fx-background-radius: 0 0 5 5;">
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" style="-fx-text-fill: #FFFFFF;" text="Key" VBox.vgrow="ALWAYS">
+            <Label alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" styleClass="sub-stage-label" stylesheets="@../resource/css/sub-stage-label.css" text="Key" VBox.vgrow="ALWAYS">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin></Label>
@@ -38,7 +38,7 @@
                <VBox.margin>
                   <Insets left="10.0" right="10.0" top="10.0" />
                </VBox.margin></TextField>
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="20.0" maxWidth="1.7976931348623157E308" style="-fx-text-fill: #FFFFFF;" text="Value">
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="20.0" maxWidth="1.7976931348623157E308" styleClass="sub-stage-label" stylesheets="@../resource/css/sub-stage-label.css" text="Value">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin></Label>
@@ -46,7 +46,7 @@
                <VBox.margin>
                   <Insets left="10.0" right="10.0" top="10.0" />
                </VBox.margin></TextField>
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="72.0" maxWidth="1.7976931348623157E308" style="-fx-text-fill: #FFFFFF;" text="Comment">
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="72.0" maxWidth="1.7976931348623157E308" styleClass="sub-stage-label" stylesheets="@../resource/css/sub-stage-label.css" text="Comment">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
@@ -56,7 +56,7 @@
                   <Insets left="10.0" right="10.0" top="10.0" />
                </VBox.margin>
             </TextArea>
-            <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="control-button" stylesheets="@../../../css/control-button.css" text="Add" VBox.vgrow="ALWAYS">
+            <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="control-button" stylesheets="@../resource/css/control-button.css" text="Add" VBox.vgrow="ALWAYS">
                <VBox.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </VBox.margin></Button>

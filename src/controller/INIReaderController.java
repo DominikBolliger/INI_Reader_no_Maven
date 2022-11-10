@@ -7,12 +7,13 @@ import javafx.scene.input.MouseButton;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import application.INIReader;
+import javafx.stage.Window;
 import model.Section;
 import model.SectionData;
 
 public class INIReaderController {
 
-    private INIReader reader;
+    private static INIReader reader;
 
     @FXML
     private Button btnClose;
@@ -27,6 +28,12 @@ public class INIReaderController {
     @FXML
     private ListView lvKeyValue;
 
+    public static INIReader createIni(INIReaderController controller) {
+        reader = new INIReader("resource/data/opms.ini", controller);
+
+        return reader;
+    }
+
     @FXML
     protected void initialize() {
         createListViewCellFactory();
@@ -37,6 +44,7 @@ public class INIReaderController {
     private void createBindings() {
         btnAddKeyValue.disableProperty().bind(lvKeyValue.getSelectionModel().selectedItemProperty().isNotNull());
         btnDeleteKeyValue.disableProperty().bind(lvKeyValue.getSelectionModel().selectedItemProperty().isNotNull());
+
     }
 
     @FXML

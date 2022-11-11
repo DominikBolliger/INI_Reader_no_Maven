@@ -27,7 +27,6 @@ public class INIReaderApplication extends Application {
     public static Stage changeStage;
     public FXMLLoader fxmlMain;
     public FXMLLoader fxmlAddSection;
-    public FXMLLoader fxmlChangeSection;
     public FXMLLoader fxmlAddKeyValue;
     public FXMLLoader fxmlChangeKeyValue;
     public static INIReaderController iniReaderController;
@@ -44,6 +43,7 @@ public class INIReaderApplication extends Application {
     public void start(Stage primaryStage) {
 
         loadScenes();
+        loadControllers();
         setScenesTransparaent();
 
         primaryStage.initStyle(StageStyle.TRANSPARENT);
@@ -90,24 +90,23 @@ public class INIReaderApplication extends Application {
     }
 
     private void loadControllers() {
-//        iniReaderController = fxmlMain.getController();
-//        addSectionController = fxmlAddSection.getController();
-//        changeSectionController = fxmlChangeSection.getController();
-//        addKeyValueController = fxmlAddKeyValue.getController();
-//        changeKeyValueController = fxmlChangeKeyValue.getController();
+        iniReaderController = fxmlMain.getController();
+        addSectionController = fxmlAddSection.getController();
+
+        addKeyValueController = fxmlAddKeyValue.getController();
+        changeKeyValueController = fxmlChangeKeyValue.getController();
     }
 
     private void loadScenes() {
         fxmlMain = new FXMLLoader(INIReaderApplication.class.getResource("/view/INIReader-view.fxml"));
         fxmlAddSection = new FXMLLoader(INIReaderApplication.class.getResource("/view/AddSection-view.fxml"));
-        fxmlChangeSection = new FXMLLoader(INIReaderApplication.class.getResource("/view/ChangeSection-view.fxml"));
         fxmlAddKeyValue = new FXMLLoader(INIReaderApplication.class.getResource("/view/AddKeyValue-view.fxml"));
         fxmlChangeKeyValue = new FXMLLoader(INIReaderApplication.class.getResource("/view/ChangeKeyValue-view.fxml"));
 
         try {
             mainScene = new Scene(fxmlMain.load());
             addSectionScene = new Scene(fxmlAddSection.load());
-            changeSectionScene = new Scene(fxmlChangeSection.load());
+
             addKeyValueScene = new Scene(fxmlAddKeyValue.load());
             changeKeyValueScene = new Scene(fxmlChangeKeyValue.load());
         } catch (IOException e) {

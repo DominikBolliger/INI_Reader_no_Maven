@@ -40,14 +40,14 @@ public class INIReaderController {
     @FXML
     protected void initialize() {
         createBindings();
-//        createListViewCellFactory();
+        createListViewCellFactory();
         reader = new INIReader("src/resource/data/opms.ini", this);
         reader.start();
     }
 
     private void createBindings() {
-        btnAddKeyValue.disableProperty().bind(lvKeyValue.getSelectionModel().selectedItemProperty().isNotNull());
-        btnDeleteKeyValue.disableProperty().bind(lvKeyValue.getSelectionModel().selectedItemProperty().isNotNull());
+        btnAddKeyValue.disableProperty().bind(lvSection.getSelectionModel().selectedItemProperty().isNull());
+        btnDeleteKeyValue.disableProperty().bind(lvKeyValue.getSelectionModel().selectedItemProperty().isNull());
     }
 
     @FXML
@@ -83,12 +83,14 @@ public class INIReaderController {
                 } else {
                     setOnMouseClicked(event -> {
                         if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2){
-                            Stage primaryStage = (Stage)lvSection.getScene().getWindow();
+                            Scene mainScene = INIReaderApplication.mainScene;
                             Stage changeStage = INIReaderApplication.changeStage;
-                            changeStage.setScene(INIReaderApplication.addSectionScene);
-                            changeStage.initModality(Modality.WINDOW_MODAL);
-                            changeStage.initOwner(primaryStage);
+                            changeStage.setScene(INIReaderApplication.changeSectionScene);
+
                             changeStage.show();
+                            INIReaderApplication.setStageCenter(changeStage);
+                            ChangeSectionController.setTfSectionName(lvKeyValue.getSelectionModel().getSelectedItem());
+                            mainScene.getRoot().setEffect(new BoxBlur(5, 10,10));
                         }
                     });
                     setText(data.getSectionName().substring(1, data.getSectionName().length() - 1));

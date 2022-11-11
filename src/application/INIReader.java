@@ -79,7 +79,7 @@ public class INIReader {
         controller.getLvSection().getItems().clear();
 
         for (Section section : sectionList) {
-            controller.getLvSection().getItems().add(section.getSectionName().substring(1, section.getSectionName().length() - 1 ));
+            controller.getLvSection().getItems().add(section);
         }
     }
 
@@ -90,7 +90,7 @@ public class INIReader {
         controller.getLvKeyValue().getItems().clear();
 
         for (SectionData data : sectionData) {
-            controller.getLvKeyValue().getItems().add(data.getKey() + "=" + data.getValue());
+            controller.getLvKeyValue().getItems().add(data);
         }
     }
 }

@@ -21,7 +21,7 @@ public class INIReader {
 
     public INIReader(String path, INIReaderController controller) {
         this.path = path;
-        this.controller =  controller;
+        this.controller = controller;
     }
 
     public void start() {
@@ -79,7 +79,7 @@ public class INIReader {
         controller.getLvSection().getItems().clear();
 
         for (Section section : sectionList) {
-            controller.getLvSection().getItems().add(section);
+            controller.getLvSection().getItems().add(section.getSectionName().substring(1, section.getSectionName().length() - 1 ));
         }
     }
 
@@ -90,7 +90,7 @@ public class INIReader {
         controller.getLvKeyValue().getItems().clear();
 
         for (SectionData data : sectionData) {
-            controller.getLvKeyValue().getItems().add(data);
+            controller.getLvKeyValue().getItems().add(data.getKey() + "=" + data.getValue());
         }
     }
 }

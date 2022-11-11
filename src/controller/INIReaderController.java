@@ -2,23 +2,32 @@ package controller;
 
 import application.INIReaderApplication;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.effect.BoxBlur;
 import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import application.INIReader;
+import javafx.stage.StageStyle;
 import javafx.stage.Window;
 import model.Section;
 import model.SectionData;
 
+import static application.INIReaderApplication.mainScene;
+
 public class INIReaderController {
-
     private static INIReader reader;
-
     @FXML
     private Button btnClose;
     @FXML
     private Button btnMinimizeWindow;
+    @FXML
+    private Button btnAddSection;
+    @FXML
+    private Button btnDeleteSection;
     @FXML
     private Button btnAddKeyValue;
     @FXML
@@ -28,23 +37,17 @@ public class INIReaderController {
     @FXML
     private ListView lvKeyValue;
 
-    public static INIReader createIni(INIReaderController controller) {
-        reader = new INIReader("resource/data/opms.ini", controller);
-
-        return reader;
-    }
-
     @FXML
     protected void initialize() {
-        createListViewCellFactory();
         createBindings();
+//        createListViewCellFactory();
+        reader = new INIReader("src/resource/data/opms.ini", this);
         reader.start();
     }
 
     private void createBindings() {
         btnAddKeyValue.disableProperty().bind(lvKeyValue.getSelectionModel().selectedItemProperty().isNotNull());
         btnDeleteKeyValue.disableProperty().bind(lvKeyValue.getSelectionModel().selectedItemProperty().isNotNull());
-
     }
 
     @FXML
@@ -60,11 +63,16 @@ public class INIReaderController {
     }
 
     @FXML
-    protected void lvSectionSetOnMousePressed(){
-        reader.addKeyValueToListView();
+    protected void btnAddSectionClick(){
+        Scene mainScene = INIReaderApplication.mainScene;
+        Stage changeStage = INIReaderApplication.changeStage;
+        changeStage.setScene(INIReaderApplication.addSectionScene);
+
+        changeStage.show();
+        INIReaderApplication.setStageCenter(changeStage);
+        mainScene.getRoot().setEffect(new BoxBlur(5, 10,10));
     }
 
-    @FXML
     private void createListViewCellFactory() {
         lvSection.setCellFactory(cell -> new ListCell<Section>() {
             @Override
@@ -131,4 +139,7 @@ public class INIReaderController {
         this.reader = reader;
     }
 
+    public void lvKeyValueOnClick(MouseEvent mouseEvent) {
+        reader.addKeyValueToListView();
+    }
 }

@@ -16,11 +16,11 @@
 }
 
 .list-view:focused .list-cell:focused:odd {
-    -fx-background-color: #000000;
-    -fx-control-inner-background: #000000;
+    -fx-background-color: #325761;
+    -fx-control-inner-background: #325761;
 }
 
 .list-view:focused .list-cell:focused:even {
-    -fx-background-color: #000000;
-    -fx-control-inner-background: #000000;
+    -fx-background-color: #325761;
+    -fx-control-inner-background: #325761;
 }

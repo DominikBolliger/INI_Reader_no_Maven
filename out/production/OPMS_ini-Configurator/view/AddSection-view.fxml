@@ -5,7 +5,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox alignment="CENTER" style="-fx-background-color: #325761;" styleClass="root-container" stylesheets="" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddSectionController">
+<VBox alignment="CENTER" style="-fx-background-color: #325761;" styleClass="root-container" stylesheets="@../resource/css/root-container.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddSectionController">
    <children>
       <HBox fx:id="hBoxHeader" alignment="CENTER" style="-fx-background-color: #669933; -fx-background-radius: 5 5 0 0;" styleClass="child-container">
          <children>

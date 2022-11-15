@@ -1,6 +1,7 @@
 package application;
 
 import controller.INIReaderController;
+import javafx.beans.binding.BooleanBinding;
 import model.Section;
 import model.SectionData;
 
@@ -9,6 +10,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class INIReader {
@@ -33,7 +36,7 @@ public class INIReader {
     private void readFile() {
         try {
             BufferedReader br = new BufferedReader(new FileReader(path));
-            iniFile = new ArrayList<String>();
+            iniFile = new ArrayList<>();
             String line = br.readLine();
 
             while (line != null) {
@@ -84,7 +87,7 @@ public class INIReader {
     }
 
     public void addKeyValueToListView() {
-        Section section = Section.getSections().get(controller.getLvSection().getSelectionModel().getSelectedIndex());
+        Section section = (Section) controller.getLvSection().getSelectionModel().getSelectedItem();
         List<SectionData> sectionData = section.getSectionData();
 
         controller.getLvKeyValue().getItems().clear();
@@ -92,5 +95,30 @@ public class INIReader {
         for (SectionData data : sectionData) {
             controller.getLvKeyValue().getItems().add(data);
         }
+    }
+
+    public void deleteSection(){
+        Section section = (Section) controller.getLvSection().getSelectionModel().getSelectedItem();
+        Section.getSections().remove(section);
+        addSectionsToListView();
+    }
+
+    public void addSection(String text){
+        List<SectionData> sectionList = new ArrayList<>();
+        Section section = new Section("["+text.substring(0,1).toUpperCase() + text.substring(1) +"]", sectionList);
+        addSectionsToListView();
+    }
+
+
+    public void updateSection(String updatetSectionName) {
+        Section section = (Section) controller.getLvSection().getSelectionModel().getSelectedItem();
+        section.setSectionName(updatetSectionName.substring(0,1).toUpperCase() + updatetSectionName.substring(1));
+        addSectionsToListView();
+    }
+
+    public void addKeyVallue(String key, String value, String comment) {
+        Section section = (Section) controller.getLvSection().getSelectionModel().getSelectedItem();
+        section.getSectionData().add(new SectionData(key, value, comment));
+        addKeyValueToListView();
     }
 }

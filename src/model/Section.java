@@ -35,6 +35,7 @@ public class Section {
 
     public void setSections(Section section) {
         sections.add(section);
+        Collections.sort(sections, Comparator.comparing((Section o) -> o.getSectionName().toLowerCase()));
         sections.sort(Comparator.comparing(Section::getSectionName));
     }
 

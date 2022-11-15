@@ -2,11 +2,14 @@ package controller;
 
 import application.INIReader;
 import application.INIReaderApplication;
+import javafx.beans.binding.BooleanBinding;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+
+import javax.script.Bindings;
 
 public class AddSectionController {
 
@@ -24,6 +27,15 @@ public class AddSectionController {
     }
 
     @FXML
+    protected void btnAddSectionClick() {
+        reader.addSection(tfAddSection.getText());
+        Stage stage = (Stage) btnClose.getScene().getWindow();
+        Scene mainScene = INIReaderApplication.mainScene;
+        stage.close();
+        mainScene.getRoot().setEffect(null);
+    }
+
+    @FXML
     protected void btnCloseClick() {
         Stage stage = (Stage) btnClose.getScene().getWindow();
         Scene mainScene = INIReaderApplication.mainScene;
@@ -32,6 +44,6 @@ public class AddSectionController {
     }
 
     public void setReader(INIReader reader) {
-            this.reader = reader;
+        this.reader = reader;
     }
 }

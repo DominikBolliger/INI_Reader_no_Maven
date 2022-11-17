@@ -4,21 +4,20 @@ import controller.INIReaderController;
 import model.Section;
 import model.SectionData;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class INIReader {
+
+    private final String INI_FILE = ":\\OPMS\\Zeag\\opms.ini";
     private List<String> iniFile;
     private List<String> newFile;
     private INIReaderController controller;
     private String path;
 
-    public INIReader(String path, INIReaderController controller) {
-        this.path = path;
+    public INIReader(INIReaderController controller) {
+        this.path = getIniFilePath();
         this.controller = controller;
     }
 
@@ -44,6 +43,50 @@ public class INIReader {
             e.printStackTrace();
         }
     }
+
+    public void saveFile() {
+        try {
+            FileWriter writer = new FileWriter(path, false);
+            for (String line : newFile) {
+                writer.write(line);
+                writer.write(System.lineSeparator());
+            }
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public boolean areFilesDifferent() {
+        boolean hasChanged = false;
+        createNewFile();
+        if (!iniFile.equals(newFile)) {
+            hasChanged = true;
+        }
+        return hasChanged;
+    }
+
+    private void createNewFile() {
+        newFile = new ArrayList<>();
+        List<Section> sections = Section.getSections();
+        for (Section section : sections) {
+            newFile.add(section.getSectionName());
+            List<SectionData> sectionData = section.getSectionData();
+            for (int i = 0; i < sectionData.size(); i++) {
+                String comment = sectionData.get(i).getComment();
+                if (!comment.equals("")) {
+                    String comSplit[] = comment.split(System.lineSeparator());
+                    for (String com : comSplit) {
+                        newFile.add(com);
+                    }
+                }
+                newFile.add(sectionData.get(i).getKey() + "=" + sectionData.get(i).getValue());
+            }
+            newFile.add("");
+        }
+        newFile.remove(newFile.size() - 1);
+    }
+
 
     private void createObjects() {
         String section = "";
@@ -122,4 +165,30 @@ public class INIReader {
         section.getSectionData().remove(sectionData);
         addKeyValueToListView();
     }
+
+    public void updateKeyValue(String key, String value, String comment) {
+        SectionData sectionData = (SectionData) controller.getLvKeyValue().getSelectionModel().getSelectedItem();
+        sectionData.setKey(key);
+        sectionData.setValue(value);
+        sectionData.setComment(comment);
+        addKeyValueToListView();
+    }
+
+    public String getIniFilePath(){
+        String ret = "";
+        File fC = new File("C" + INI_FILE);
+        File fD = new File("D" + INI_FILE);
+        if(fC.isFile()) {
+            ret = "C" + INI_FILE;
+        }
+        else if(fD.isFile()) {
+            ret = "D" + INI_FILE;
+        }
+        else {
+            System.out.println("There is no OPMS.ini file..");
+            System.exit(0);
+        }
+        return ret;
+    }
+
 }

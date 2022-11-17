@@ -32,6 +32,8 @@ public class INIReaderController {
     @FXML
     private Button btnAddSection;
     @FXML
+    private Button btnResize;
+    @FXML
     private Button btnDeleteSection;
     @FXML
     private Button btnAddKeyValue;
@@ -46,7 +48,7 @@ public class INIReaderController {
     protected void initialize() {
         createBindings();
         createListViewCellFactory();
-        reader = new INIReader("src/resource/data/opms.ini", this);
+        reader = new INIReader(this);
         reader.start();
     }
 
@@ -58,6 +60,9 @@ public class INIReaderController {
 
     @FXML
     protected void btnCloseClick() {
+        if (reader.areFilesDifferent()){
+            reader.saveFile();
+        }
         Stage stage = (Stage) btnClose.getScene().getWindow();
         stage.close();
     }
@@ -109,7 +114,7 @@ public class INIReaderController {
     }
 
     @FXML
-    public void btnDeleteKeyValueClick(){
+    public void btnDeleteKeyValueClick() {
         reader.deleteKeyValue();
     }
 
@@ -139,6 +144,27 @@ public class INIReaderController {
             mainScene.getRoot().setEffect(new BoxBlur(5, 10, 10));
         } else {
             reader.addKeyValueToListView();
+        }
+    }
+
+    @FXML
+    private void lvKeyValueClick(MouseEvent mouseEvent) throws IOException {
+        if (mouseEvent.getClickCount() == 2) {
+            Scene mainScene = INIReaderApplication.mainScene;
+            Stage changeStage = INIReaderApplication.secondStage;
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ChangeKeyValue-view.fxml"));
+            Scene changeKeyValueScene = new Scene(loader.load());
+            changeKeyValueScene.setFill(Color.TRANSPARENT);
+
+            ((ChangeKeyValueController) loader.getController()).setKeyValueTextFieldText((SectionData) lvKeyValue.getSelectionModel().getSelectedItem());
+            ((ChangeKeyValueController) loader.getController()).setReader(reader);
+
+            changeStage.setScene(changeKeyValueScene);
+            changeStage.show();
+
+            INIReaderApplication.makeWindowMoveable(changeKeyValueScene.getRoot(), changeStage);
+            INIReaderApplication.setStageCenter(changeStage);
+            mainScene.getRoot().setEffect(new BoxBlur(5, 10, 10));
         }
     }
 
@@ -186,5 +212,19 @@ public class INIReaderController {
         return lvKeyValue;
     }
 
+    public void btnResizeClick(ActionEvent actionEvent) {
+        Stage stage = (Stage) btnResize.getScene().getWindow();
+        if (stage.isMaximized()) {
+            stage.setMaximized(false);
+        } else {
+            stage.setMaximized(true);
+        }
+    }
 
+    @FXML
+    public void menuBarSaveClick(ActionEvent actionEvent) {
+        if (reader.areFilesDifferent()) {
+            reader.saveFile();
+        }
+    }
 }

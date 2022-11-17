@@ -74,24 +74,72 @@ public class INIReaderController {
         Stage changeStage = INIReaderApplication.secondStage;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/AddSection-view.fxml"));
         Scene addSectionScene = new Scene(loader.load());
-        ((AddSectionController)loader.getController()).setReader(reader);
+        ((AddSectionController) loader.getController()).setReader(reader);
         addSectionScene.setFill(Color.TRANSPARENT);
         changeStage.setScene(addSectionScene);
         changeStage.show();
 
         INIReaderApplication.makeWindowMoveable(addSectionScene.getRoot(), changeStage);
         INIReaderApplication.setStageCenter(changeStage);
-        mainScene.getRoot().setEffect(new BoxBlur(5, 10,10));
+        mainScene.getRoot().setEffect(new BoxBlur(5, 10, 10));
     }
 
     @FXML
-    protected void btnDeleteSectionClick(){
+    protected void btnDeleteSectionClick() {
         reader.deleteSection();
     }
 
     @FXML
-    protected void lvSectionKeyPressed(){
+    public void btnAddKeyValueClick() throws IOException {
+        Scene mainScene = INIReaderApplication.mainScene;
+        Stage changeStage = INIReaderApplication.secondStage;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/AddKeyValue-view.fxml"));
+        Scene addKeyValueScene = new Scene(loader.load());
+        addKeyValueScene.setFill(Color.TRANSPARENT);
+
+        ((AddKeyValueController) loader.getController()).setReader(reader);
+
+        changeStage.setScene(addKeyValueScene);
+        changeStage.show();
+
+        INIReaderApplication.makeWindowMoveable(addKeyValueScene.getRoot(), changeStage);
+        ;
+        INIReaderApplication.setStageCenter(changeStage);
+        mainScene.getRoot().setEffect(new BoxBlur(5, 10, 10));
+    }
+
+    @FXML
+    public void btnDeleteKeyValueClick(){
+        reader.deleteKeyValue();
+    }
+
+    @FXML
+    protected void lvSectionKeyPressed() {
         reader.addKeyValueToListView();
+    }
+
+    @FXML
+    public void lvSectionClick(MouseEvent mouseEvent) throws IOException {
+        if (mouseEvent.getClickCount() == 2) {
+            Scene mainScene = INIReaderApplication.mainScene;
+            Stage changeStage = INIReaderApplication.secondStage;
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ChangeSection-view.fxml"));
+            Scene changeSectionScene = new Scene(loader.load());
+            changeSectionScene.setFill(Color.TRANSPARENT);
+
+            ((ChangeSectionController) loader.getController()).setSectionTextFieldText((Section) lvSection.getSelectionModel().getSelectedItem());
+            ((ChangeSectionController) loader.getController()).setReader(reader);
+
+            changeStage.setScene(changeSectionScene);
+            changeStage.show();
+
+            INIReaderApplication.makeWindowMoveable(changeSectionScene.getRoot(), changeStage);
+            ;
+            INIReaderApplication.setStageCenter(changeStage);
+            mainScene.getRoot().setEffect(new BoxBlur(5, 10, 10));
+        } else {
+            reader.addKeyValueToListView();
+        }
     }
 
     private void createListViewCellFactory() {
@@ -138,42 +186,5 @@ public class INIReaderController {
         return lvKeyValue;
     }
 
-    public void lvSectionClick(MouseEvent mouseEvent) throws IOException {
-        if (mouseEvent.getClickCount() == 2){
-            Scene mainScene = INIReaderApplication.mainScene;
-            Stage changeStage = INIReaderApplication.secondStage;
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ChangeSection-view.fxml"));
-            Scene changeSectionScene = new Scene(loader.load());
-            changeSectionScene.setFill(Color.TRANSPARENT);
 
-            ((ChangeSectionController)loader.getController()).setSectionTextFieldText((Section)lvSection.getSelectionModel().getSelectedItem());
-            ((ChangeSectionController)loader.getController()).setReader(reader);
-
-            changeStage.setScene(changeSectionScene);
-            changeStage.show();
-
-            INIReaderApplication.makeWindowMoveable(changeSectionScene.getRoot(), changeStage);;
-            INIReaderApplication.setStageCenter(changeStage);
-            mainScene.getRoot().setEffect(new BoxBlur(5, 10,10));
-        } else{
-            reader.addKeyValueToListView();
-        }
-    }
-
-    public void btnAddKeyValueClick() throws IOException {
-        Scene mainScene = INIReaderApplication.mainScene;
-        Stage changeStage = INIReaderApplication.secondStage;
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/AddKeyValue-view.fxml"));
-        Scene addKeyValueScene = new Scene(loader.load());
-        addKeyValueScene.setFill(Color.TRANSPARENT);
-
-        ((AddKeyValueController)loader.getController()).setReader(reader);
-
-        changeStage.setScene(addKeyValueScene);
-        changeStage.show();
-
-        INIReaderApplication.makeWindowMoveable(addKeyValueScene.getRoot(), changeStage);;
-        INIReaderApplication.setStageCenter(changeStage);
-        mainScene.getRoot().setEffect(new BoxBlur(5, 10,10));
-    }
 }

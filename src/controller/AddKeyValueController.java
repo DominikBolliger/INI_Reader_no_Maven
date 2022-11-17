@@ -28,7 +28,7 @@ public class AddKeyValueController {
 
     @FXML
     protected void btnAddKeyValueClick(){
-        reader.addKeyVallue(tfKey.getText(), tfValue.getText(), taComment.getText());
+        reader.addKeyValue(tfKey.getText(), tfValue.getText(), taComment.getText());
         Stage stage = (Stage) btnClose.getScene().getWindow();
         Scene mainScene = INIReaderApplication.mainScene;
         stage.close();

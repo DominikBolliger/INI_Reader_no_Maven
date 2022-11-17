@@ -29,15 +29,30 @@
          <VBox.margin>
             <Insets left="2.0" right="2.0" top="2.0" />
          </VBox.margin>
+         <padding>
+            <Insets bottom="2.0" top="2.0" />
+         </padding>
       </HBox>
+      <MenuBar stylesheets="@../resource/css/menu-bar.css">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Save" />
+            </items>
+          </Menu>
+        </menus>
+         <VBox.margin>
+            <Insets left="2.0" right="2.0" />
+         </VBox.margin>
+      </MenuBar>
       <HBox>
          <children>
-            <Label maxWidth="1.7976931348623157E308" minWidth="250.0" prefHeight="25.0" style="-fx-background-color: #325761;" text="Section" textFill="WHITE" HBox.hgrow="ALWAYS">
+            <Label alignment="CENTER" maxWidth="1.7976931348623157E308" minWidth="250.0" prefHeight="25.0" style="-fx-background-color: #325761;" text="Section:" textFill="WHITE" HBox.hgrow="ALWAYS">
                <padding>
                   <Insets left="10.0" />
                </padding>
             </Label>
-            <Label maxWidth="1.7976931348623157E308" minWidth="250.0" prefHeight="25.0" style="-fx-background-color: #325761;" text="Key-Value" textFill="WHITE" HBox.hgrow="ALWAYS">
+            <Label alignment="CENTER" maxWidth="1.7976931348623157E308" minWidth="250.0" prefHeight="25.0" style="-fx-background-color: #325761;" text="Key-Value:" textFill="WHITE" HBox.hgrow="ALWAYS">
                <padding>
                   <Insets left="10.0" />
                </padding>
@@ -109,7 +124,7 @@
                            <GridPane.margin>
                               <Insets left="10.0" right="10.0" top="10.0" />
                            </GridPane.margin></Button>
-                        <Button fx:id="btnDeleteKeyValue" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="control-button" stylesheets="@../resource/css/control-button.css" text="Delete Key+Value" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
+                        <Button fx:id="btnDeleteKeyValue" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#btnDeleteKeyValueClick" styleClass="control-button" stylesheets="@../resource/css/control-button.css" text="Delete Key+Value" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
                            <GridPane.margin>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </GridPane.margin></Button>

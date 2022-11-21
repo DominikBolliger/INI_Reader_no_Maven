@@ -18,6 +18,7 @@ import javafx.stage.StageStyle;
 import javafx.stage.Window;
 import model.Section;
 import model.SectionData;
+import util.Util;
 
 import java.io.IOException;
 
@@ -86,7 +87,7 @@ public class INIReaderController {
 
         INIReaderApplication.makeWindowMoveable(addSectionScene.getRoot(), changeStage);
         INIReaderApplication.setStageCenter(changeStage);
-        mainScene.getRoot().setEffect(new BoxBlur(5, 10, 10));
+        mainScene.getRoot().setEffect(Util.BLURRFACTOR);
     }
 
     @FXML
@@ -176,7 +177,7 @@ public class INIReaderController {
                 if (data == null || empty) {
                     setText(null);
                 } else {
-                    setText(data.getSectionName().substring(1, data.getSectionName().length() - 1));
+                    setText(data.getSectionName());
                 }
             }
         });
@@ -193,7 +194,7 @@ public class INIReaderController {
                 } else {
                     setText(data.getKey() + "=" + data.getValue());
                     if (!data.getComment().equals("")) {
-                        tooltip.setText(data.getComment().replaceAll("#", ""));
+                        tooltip.setText(data.getComment());
                         setTooltip(tooltip);
                     } else {
                         tooltip.setText("No Comment");

@@ -70,14 +70,14 @@ public class INIReader {
         newFile = new ArrayList<>();
         List<Section> sections = Section.getSections();
         for (Section section : sections) {
-            newFile.add(section.getSectionName());
+            newFile.add("[" + section.getSectionName() + "]");
             List<SectionData> sectionData = section.getSectionData();
             for (int i = 0; i < sectionData.size(); i++) {
                 String comment = sectionData.get(i).getComment();
                 if (!comment.equals("")) {
                     String comSplit[] = comment.split(System.lineSeparator());
                     for (String com : comSplit) {
-                        newFile.add(com);
+                        newFile.add("#" + com);
                     }
                 }
                 newFile.add(sectionData.get(i).getKey() + "=" + sectionData.get(i).getValue());
@@ -99,9 +99,9 @@ public class INIReader {
                     new Section(section, dataList);
                     dataList = new ArrayList<>();
                 }
-                section = line;
+                section = line.substring(1,line.length()-1);
             } else if (line.startsWith("#")) {
-                comment += line + System.lineSeparator();
+                comment += line.substring(1) + System.lineSeparator();
             } else if (!line.equals("")) {
                 if (!comment.equals("")) {
                     comment = comment.substring(0, comment.length() - 2);

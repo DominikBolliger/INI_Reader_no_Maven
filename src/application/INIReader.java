@@ -84,8 +84,11 @@ public class INIReader {
                 newFile.add(sectionData.get(i).getKey() + "=" + sectionData.get(i).getValue());
             }
             newFile.add("");
+
         }
-        newFile.remove(newFile.size() - 1);
+        while (newFile.get(newFile.size()-1).isEmpty()){
+            newFile.remove(newFile.size()-1);
+        }
     }
 
 
@@ -108,7 +111,13 @@ public class INIReader {
                     comment = comment.substring(0, comment.length() - 2);
                 }
                 String[] splitLine = line.split("=");
-                dataList.add(new SectionData(splitLine[0], splitLine[1], comment));
+                try {
+                    dataList.add(new SectionData(splitLine[0], splitLine[1], comment));
+                }
+                catch (Exception e){
+                    System.out.println(line);
+                    System.out.println(e);
+                }
                 comment = "";
             }
         }

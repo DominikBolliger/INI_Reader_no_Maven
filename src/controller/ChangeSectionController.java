@@ -36,8 +36,7 @@ public class ChangeSectionController {
     }
 
     public void setSectionTextFieldText(Section section) {
-        String sectionName = section.getSectionName();
-        tfSectionName.setText(sectionName.substring(1, sectionName.length() - 1));
+        tfSectionName.setText(section.getSectionName());
     }
 
     public void setReader(INIReader reader) {

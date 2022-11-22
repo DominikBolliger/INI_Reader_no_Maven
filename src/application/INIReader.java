@@ -58,6 +58,8 @@ public class INIReader {
         }
     }
 
+    //TODO: Are files different is not working while using bigger files
+
     public boolean areFilesDifferent() {
         boolean hasChanged = false;
         createNewFile();
@@ -84,10 +86,9 @@ public class INIReader {
                 newFile.add(sectionData.get(i).getKey() + "=" + sectionData.get(i).getValue());
             }
             newFile.add("");
-
         }
-        while (newFile.get(newFile.size()-1).isEmpty()){
-            newFile.remove(newFile.size()-1);
+        while (newFile.get(newFile.size() - 1).isEmpty()) {
+            newFile.remove(newFile.size() - 1);
         }
     }
 
@@ -103,7 +104,7 @@ public class INIReader {
                     new Section(section, dataList);
                     dataList = new ArrayList<>();
                 }
-                section = line.substring(1,line.length()-1);
+                section = line.substring(1, line.length() - 1);
             } else if (line.startsWith("#")) {
                 comment += line.substring(1) + System.lineSeparator();
             } else if (!line.equals("")) {
@@ -113,8 +114,7 @@ public class INIReader {
                 String[] splitLine = line.split("=");
                 try {
                     dataList.add(new SectionData(splitLine[0], splitLine[1], comment));
-                }
-                catch (Exception e){
+                } catch (Exception e) {
                     System.out.println(line);
                     System.out.println(e);
                 }

@@ -19,6 +19,8 @@ public class INIReaderApplication extends Application {
     private static double xOffset = 0;
     private static double yOffset = 0;
     public static Scene mainScene;
+
+    public static FXMLLoader fxmlMain;
     public static Stage secondStage;
     public static void main(String[] args) {
         launch();
@@ -27,7 +29,7 @@ public class INIReaderApplication extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
 
-        FXMLLoader fxmlMain = new FXMLLoader(INIReaderApplication.class.getResource("/view/INIReader-view.fxml"));
+        fxmlMain = new FXMLLoader(INIReaderApplication.class.getResource("/view/INIReader-view.fxml"));
         mainScene = new Scene(fxmlMain.load());
         mainScene.setFill(Color.TRANSPARENT);
 

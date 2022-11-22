@@ -2,6 +2,7 @@ package controller;
 
 import application.INIReader;
 import application.INIReaderApplication;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
@@ -24,6 +25,11 @@ public class ChangeKeyValueController {
     @FXML
     private TextArea tfaComment;
     private INIReader reader;
+
+    @FXML
+    protected void initialize(){
+        Platform.runLater(() -> tfKey.requestFocus());
+    }
 
     @FXML
     protected void btnCloseClick() {

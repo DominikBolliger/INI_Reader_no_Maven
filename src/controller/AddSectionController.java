@@ -2,6 +2,7 @@ package controller;
 
 import application.INIReader;
 import application.INIReaderApplication;
+import javafx.application.Platform;
 import javafx.beans.binding.BooleanBinding;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
@@ -24,6 +25,7 @@ public class AddSectionController {
     @FXML
     protected void initialize() {
         btnAddSection.disableProperty().bind(tfAddSection.textProperty().isEmpty());
+        Platform.runLater(() -> tfAddSection.requestFocus());
     }
 
     @FXML

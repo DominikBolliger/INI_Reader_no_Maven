@@ -3,6 +3,7 @@
     -fx-background-insets: 0.1 0.1 0.1 0.1;
     -fx-background-insets: 0.1 0.1 0.1 0.1;
     -fx-background-radius: 0 0 0 0;
+    -fx-padding: 0;
 }
 
 .list-cell:odd {
@@ -16,11 +17,11 @@
 }
 
 .list-view:focused .list-cell:focused:odd {
-    -fx-background-color: #325761;
-    -fx-control-inner-background: #325761;
+    -fx-background-color: #669933;
+    -fx-control-inner-background: #669933;
 }
 
 .list-view:focused .list-cell:focused:even {
-    -fx-background-color: #325761;
-    -fx-control-inner-background: #325761;
+    -fx-background-color: #669933;
+    -fx-control-inner-background: #669933;
 }

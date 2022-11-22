@@ -4,25 +4,18 @@ import application.INIReaderApplication;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.effect.BoxBlur;
-import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import application.INIReader;
-import javafx.stage.StageStyle;
-import javafx.stage.Window;
 import model.Section;
 import model.SectionData;
 import util.Util;
 
 import java.io.IOException;
-
-import static application.INIReaderApplication.mainScene;
 
 public class INIReaderController {
     private static INIReader reader;
@@ -45,6 +38,8 @@ public class INIReaderController {
     @FXML
     private ListView lvKeyValue;
 
+    private boolean save = false;
+
     @FXML
     protected void initialize() {
         createBindings();
@@ -60,10 +55,45 @@ public class INIReaderController {
     }
 
     @FXML
-    protected void btnCloseClick() {
+    protected void btnCloseClick() throws IOException {
         if (reader.areFilesDifferent()){
-            reader.saveFile();
+            Scene mainScene = INIReaderApplication.mainScene;
+            Stage changeStage = INIReaderApplication.secondStage;
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Dialog-view.fxml"));
+            Scene dialogScene = new Scene(loader.load());
+            dialogScene.setFill(Color.TRANSPARENT);
+            changeStage.setScene(dialogScene);
+            INIReaderApplication.makeWindowMoveable(dialogScene.getRoot(), changeStage);
+            mainScene.getRoot().setEffect(Util.BLURRFACTOR);
+            ((DialogController) loader.getController()).setVBoxDoubleButtonVisible(true);
+            ((DialogController) loader.getController()).setVBoxSingleButtonVisible(false);
+            ((DialogController) loader.getController()).setInfoLabelText("The files has been changed.\nDo you want to save the changes?");
+            ((DialogController) loader.getController()).setTitleLabelText("Changes detected");
+            changeStage.show();
+            INIReaderApplication.setStageCenter(changeStage);
+        } else {
+            Stage stage = (Stage) btnClose.getScene().getWindow();
+            stage.close();
         }
+    }
+
+    public void saveFile() throws IOException {
+        Scene mainScene = INIReaderApplication.mainScene;
+        Stage changeStage = INIReaderApplication.secondStage;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Dialog-view.fxml"));
+        Scene dialogScene = new Scene(loader.load());
+        dialogScene.setFill(Color.TRANSPARENT);
+        changeStage.setScene(dialogScene);
+        INIReaderApplication.makeWindowMoveable(dialogScene.getRoot(), changeStage);
+        mainScene.getRoot().setEffect(Util.BLURRFACTOR);
+        ((DialogController) loader.getController()).setVBoxDoubleButtonVisible(false);
+        ((DialogController) loader.getController()).setVBoxSingleButtonVisible(true);
+        ((DialogController) loader.getController()).setInfoLabelText("The files has been saved.\nThanks and Good bye..");
+        ((DialogController) loader.getController()).setTitleLabelText("Saved changes");
+        ((DialogController) loader.getController()).setButtonText("Ok");
+        INIReaderApplication.setStageCenter(changeStage);
+        reader.saveFile();
+        changeStage.showAndWait();
         Stage stage = (Stage) btnClose.getScene().getWindow();
         stage.close();
     }
@@ -111,7 +141,7 @@ public class INIReaderController {
         INIReaderApplication.makeWindowMoveable(addKeyValueScene.getRoot(), changeStage);
         ;
         INIReaderApplication.setStageCenter(changeStage);
-        mainScene.getRoot().setEffect(new BoxBlur(5, 10, 10));
+        mainScene.getRoot().setEffect(Util.BLURRFACTOR);
     }
 
     @FXML
@@ -140,9 +170,8 @@ public class INIReaderController {
             changeStage.show();
 
             INIReaderApplication.makeWindowMoveable(changeSectionScene.getRoot(), changeStage);
-            ;
             INIReaderApplication.setStageCenter(changeStage);
-            mainScene.getRoot().setEffect(new BoxBlur(5, 10, 10));
+            mainScene.getRoot().setEffect(Util.BLURRFACTOR);
         } else {
             reader.addKeyValueToListView();
         }
@@ -222,10 +251,45 @@ public class INIReaderController {
         }
     }
 
+    public void setSave(boolean save) {
+        this.save = save;
+    }
+
     @FXML
-    public void menuBarSaveClick(ActionEvent actionEvent) {
+    public void menuBarSaveClick() throws IOException {
+
+        Scene mainScene = INIReaderApplication.mainScene;
+        Stage changeStage = INIReaderApplication.secondStage;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Dialog-view.fxml"));
+        Scene dialogScene = new Scene(loader.load());
+        dialogScene.setFill(Color.TRANSPARENT);
+        changeStage.setScene(dialogScene);
+
+
+        INIReaderApplication.makeWindowMoveable(dialogScene.getRoot(), changeStage);
+        mainScene.getRoot().setEffect(Util.BLURRFACTOR);
+
         if (reader.areFilesDifferent()) {
             reader.saveFile();
+            ((DialogController) loader.getController()).setTitleLabelText("File saved");
+            ((DialogController) loader.getController()).setInfoLabelText("The file has been successfully saved..");
+            ((DialogController) loader.getController()).setButtonText("Ok");
+            ((DialogController) loader.getController()).setVBoxDoubleButtonVisible(false);
+            ((DialogController) loader.getController()).setVBoxSingleButtonVisible(true);
+            changeStage.show();
+            INIReaderApplication.setStageCenter(changeStage);
+        } else {
+            ((DialogController) loader.getController()).setTitleLabelText("No changes");
+            ((DialogController) loader.getController()).setInfoLabelText("The file has not been changed!");
+            ((DialogController) loader.getController()).setButtonText("Ok");
+            ((DialogController) loader.getController()).setVBoxDoubleButtonVisible(false);
+            ((DialogController) loader.getController()).setVBoxSingleButtonVisible(true);
+            changeStage.show();
+            INIReaderApplication.setStageCenter(changeStage);
         }
+    }
+
+    public Button getBtnClose() {
+        return btnClose;
     }
 }

@@ -48,7 +48,7 @@ public class Section {
     }
 
     public void setSectionName(String sectionName) {
-        this.sectionName = "[" + sectionName + "]";
+        this.sectionName = sectionName;
         sections.sort(Comparator.comparing(Section::getSectionName));
     }
 

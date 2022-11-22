@@ -3,6 +3,7 @@ package application;
 import controller.INIReaderController;
 import model.Section;
 import model.SectionData;
+import util.Util;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -10,14 +11,14 @@ import java.util.List;
 
 public class INIReader {
 
-    private final String INI_FILE = ":\\OPMS\\Zeag\\opms.ini";
+
     private List<String> iniFile;
     private List<String> newFile;
     private INIReaderController controller;
     private String path;
 
     public INIReader(INIReaderController controller) {
-        this.path = getIniFilePath();
+        this.path = Util.getIniFilePath();
         this.controller = controller;
     }
 
@@ -137,7 +138,7 @@ public class INIReader {
 
     public void addSection(String text) {
         List<SectionData> sectionList = new ArrayList<>();
-        Section section = new Section("[" + text.substring(0, 1).toUpperCase() + text.substring(1) + "]", sectionList);
+        new Section(text.substring(0, 1).toUpperCase() + text.substring(1), sectionList);
         addSectionsToListView();
     }
 
@@ -172,23 +173,6 @@ public class INIReader {
         sectionData.setValue(value);
         sectionData.setComment(comment);
         addKeyValueToListView();
-    }
-
-    public String getIniFilePath(){
-        String ret = "";
-        File fC = new File("C" + INI_FILE);
-        File fD = new File("D" + INI_FILE);
-        if(fC.isFile()) {
-            ret = "C" + INI_FILE;
-        }
-        else if(fD.isFile()) {
-            ret = "D" + INI_FILE;
-        }
-        else {
-            System.out.println("There is no OPMS.ini file..");
-            System.exit(0);
-        }
-        return ret;
     }
 
 }

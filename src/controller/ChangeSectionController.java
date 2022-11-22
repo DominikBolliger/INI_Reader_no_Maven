@@ -2,6 +2,7 @@ package controller;
 
 import application.INIReader;
 import application.INIReaderApplication;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
@@ -23,6 +24,7 @@ public class ChangeSectionController {
     @FXML
     protected void initialize() {
         btnUpdateSection.disableProperty().bind(tfSectionName.textProperty().isEmpty());
+        Platform.runLater(() -> tfSectionName.requestFocus());
     }
 
     @FXML

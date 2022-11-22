@@ -14,7 +14,7 @@
                   <Image url="@../resource/img/hub-round-big.png" />
                </image>
                <HBox.margin>
-                  <Insets left="1.0" />
+                  <Insets left="10.0" />
                </HBox.margin>
             </ImageView>
             <Label alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="25.0" style="-fx-background-color: #669933;" text="Change Section" HBox.hgrow="ALWAYS">
@@ -22,7 +22,14 @@
                   <Insets left="10.0" />
                </padding>
             </Label>
-            <Button fx:id="btnClose" mnemonicParsing="false" onAction="#btnCloseClick" prefHeight="25.0" prefWidth="25.0" style="-fx-background-radius: 0 5 0 0;" styleClass="stage-button" stylesheets="@../resource/css/stage-buttons.css" text="X" HBox.hgrow="ALWAYS" />
+            <Button fx:id="btnClose" mnemonicParsing="false" onAction="#btnCloseClick" prefHeight="25.0" prefWidth="25.0" style="-fx-background-radius: 0 5 0 0;" styleClass="stage-button" stylesheets="@../resource/css/stage-buttons.css" HBox.hgrow="ALWAYS">
+               <graphic>
+                  <ImageView fitHeight="12.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resource/img/x.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
          </children>
          <VBox.margin>
             <Insets bottom="1.0" left="2.0" right="2.0" top="2.0" />

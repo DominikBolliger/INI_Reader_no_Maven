@@ -2,6 +2,7 @@ package controller;
 
 import application.INIReader;
 import application.INIReaderApplication;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -24,6 +25,7 @@ public class AddKeyValueController {
     @FXML
     protected void initialize() {
         btnAddKeyValue.disableProperty().bind(tfKey.textProperty().isEmpty().or(tfValue.textProperty().isEmpty()));
+        Platform.runLater(() -> tfKey.requestFocus());
     }
 
     @FXML

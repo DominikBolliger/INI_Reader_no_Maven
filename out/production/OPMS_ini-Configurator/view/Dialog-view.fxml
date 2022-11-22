@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" styleClass="root-container" stylesheets="@../resource/css/root-container.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DialogController">
+   <children>
+      <HBox fx:id="hBoxHeader" alignment="CENTER" style="-fx-background-color: #669933;" styleClass="child-container" stylesheets="@../resource/css/child-container.css">
+         <children>
+            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" smooth="false">
+               <image>
+                  <Image url="@../resource/img/hub-round-big.png" />
+               </image>
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </ImageView>
+            <Label fx:id="lblTitle" alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="25.0" style="-fx-background-color: #669933;" text=".." HBox.hgrow="ALWAYS">
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </Label>
+            <Button fx:id="btnClose" mnemonicParsing="false" onAction="#btnCloseClick" prefHeight="25.0" prefWidth="25.0" style="-fx-background-radius: 0 5 0 0;" styleClass="stage-button" stylesheets="@../resource/css/stage-buttons.css" HBox.hgrow="ALWAYS">
+               <graphic>
+                  <ImageView fitHeight="12.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resource/img/x.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
+         </children>
+         <VBox.margin>
+            <Insets bottom="1.0" left="2.0" right="2.0" top="2.0" />
+         </VBox.margin>
+      </HBox>
+      <VBox fx:id="vBoxSingleButton" style="-fx-background-color: #A2BB88; -fx-background-radius: 0 0 5 5;">
+         <children>
+            <Label fx:id="lblInfo" alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" styleClass="sub-stage-label" stylesheets="@../resource/css/sub-stage-label.css" text=".." VBox.vgrow="ALWAYS">
+               <VBox.margin>
+                  <Insets left="10.0" right="10.0" top="10.0" />
+               </VBox.margin></Label>
+            <Button fx:id="btnOk" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#btnCloseClick" styleClass="control-button" stylesheets="@../resource/css/control-button.css" text=".." VBox.vgrow="ALWAYS">
+               <VBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </VBox.margin></Button>
+         </children>
+         <VBox.margin>
+            <Insets bottom="2.0" left="2.0" right="2.0" top="1.0" />
+         </VBox.margin>
+      </VBox>
+      <VBox fx:id="vBoxDoubleButton" style="-fx-background-color: #A2BB88; -fx-background-radius: 0 0 5 5;">
+         <children>
+            <Label fx:id="lblInfoDouble" alignment="CENTER" maxWidth="1.7976931348623157E308" styleClass="sub-stage-label" stylesheets="@../resource/css/sub-stage-label.css" text=".." VBox.vgrow="ALWAYS">
+               <VBox.margin>
+                  <Insets left="10.0" right="10.0" top="10.0" />
+               </VBox.margin>
+            </Label>
+            <HBox>
+               <children>
+                  <Button fx:id="btnSave" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#btnSaveClick" styleClass="control-button" stylesheets="@../resource/css/control-button.css" text="Save" HBox.hgrow="ALWAYS">
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="5.0" top="10.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="btnCancel" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#btnCancelClick" styleClass="control-button" stylesheets="@../resource/css/control-button.css" text="Discard" HBox.hgrow="ALWAYS">
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="5.0" right="10.0" top="10.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+         <VBox.margin>
+            <Insets bottom="2.0" left="2.0" right="2.0" top="1.0" />
+         </VBox.margin>
+      </VBox>
+   </children>
+</VBox>

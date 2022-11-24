@@ -4,11 +4,13 @@ import application.INIReaderApplication;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.effect.BoxBlur;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import application.INIReader;
 import model.Section;
@@ -37,8 +39,6 @@ public class INIReaderController {
     private ListView lvSection;
     @FXML
     private ListView lvKeyValue;
-
-    private boolean save = false;
 
     @FXML
     protected void initialize() {
@@ -248,11 +248,16 @@ public class INIReaderController {
             stage.setMaximized(false);
         } else {
             stage.setMaximized(true);
-        }
-    }
+            Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+            stage.setX(primaryScreenBounds.getMinX());
+            stage.setY(primaryScreenBounds.getMinY());
 
-    public void setSave(boolean save) {
-        this.save = save;
+            stage.setMaxWidth(primaryScreenBounds.getWidth());
+            stage.setMinWidth(primaryScreenBounds.getWidth());
+
+            stage.setMaxHeight(primaryScreenBounds.getHeight());
+            stage.setMinHeight(primaryScreenBounds.getHeight());
+        }
     }
 
     @FXML

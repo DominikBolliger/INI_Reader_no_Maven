@@ -18,9 +18,9 @@ public class INIReaderApplication extends Application {
     private static double xOffset = 0;
     private static double yOffset = 0;
     public static Scene mainScene;
-
     public static FXMLLoader fxmlMain;
     public static Stage secondStage;
+
     public static void main(String[] args) {
         launch();
     }

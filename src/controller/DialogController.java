@@ -32,25 +32,25 @@ public class DialogController {
     private VBox vBoxDoubleButton;
 
 
-    public void setTitleLabelText(String text){
+    public void setTitleLabelText(String text) {
         lblTitle.setText(text);
     }
 
-    public void setInfoLabelText(String text){
+    public void setInfoLabelText(String text) {
         lblInfo.setText(text);
         lblInfoDouble.setText(text);
     }
 
-    public void setButtonText(String text){
+    public void setButtonText(String text) {
         btnOk.setText(text);
     }
 
-    public void setVBoxDoubleButtonVisible(boolean isVisibleAndManaged){
+    public void setVBoxDoubleButtonVisible(boolean isVisibleAndManaged) {
         vBoxDoubleButton.setVisible(isVisibleAndManaged);
         vBoxDoubleButton.setManaged(isVisibleAndManaged);
     }
 
-    public void setVBoxSingleButtonVisible(boolean isVisibleAndManaged){
+    public void setVBoxSingleButtonVisible(boolean isVisibleAndManaged) {
         vBoxSingleButton.setVisible(isVisibleAndManaged);
         vBoxSingleButton.setManaged(isVisibleAndManaged);
     }
@@ -68,17 +68,16 @@ public class DialogController {
         stage.close();
         mainScene.getRoot().setEffect(null);
         FXMLLoader loader = INIReaderApplication.fxmlMain;
-
-        ((INIReaderController)loader.getController()).saveFile();
+        ((INIReaderController) loader.getController()).saveFile();
     }
 
-    public void btnCancelClick(){
+    public void btnCancelClick() {
         Stage stage = (Stage) btnClose.getScene().getWindow();
         Scene mainScene = INIReaderApplication.mainScene;
         stage.close();
         mainScene.getRoot().setEffect(null);
         FXMLLoader loader = INIReaderApplication.fxmlMain;
-        Stage mainStage = (Stage)((INIReaderController)loader.getController()).getBtnClose().getScene().getWindow();
+        Stage mainStage = (Stage) ((INIReaderController) loader.getController()).getBtnClose().getScene().getWindow();
         mainStage.close();
     }
 

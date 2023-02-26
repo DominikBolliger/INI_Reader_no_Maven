@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import model.Section;
 
 import javax.script.Bindings;
 
@@ -30,11 +31,13 @@ public class AddSectionController {
 
     @FXML
     protected void btnAddSectionClick() {
-        reader.addSection(tfAddSection.getText());
+        Section newSection = reader.addSection(tfAddSection.getText());
         Stage stage = (Stage) btnClose.getScene().getWindow();
         Scene mainScene = INIReaderApplication.mainScene;
         stage.close();
         mainScene.getRoot().setEffect(null);
+        reader.getController().getLvSection().getSelectionModel().select(newSection);
+        reader.addKeyValueToListView();
     }
 
     @FXML

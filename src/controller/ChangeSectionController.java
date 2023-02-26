@@ -44,10 +44,11 @@ public class ChangeSectionController {
     }
 
     public void btnUpdateSectionClick() {
-        reader.updateSection(tfSectionName.getText());
+        Section changedSection = reader.updateSection(tfSectionName.getText());
         Stage stage = (Stage) btnClose.getScene().getWindow();
         Scene mainScene = INIReaderApplication.mainScene;
         stage.close();
         mainScene.getRoot().setEffect(null);
+        reader.getController().getLvSection().getSelectionModel().select(changedSection);
     }
 }

@@ -1,5 +1,7 @@
 package model;
 
+import javafx.collections.FXCollections;
+
 import java.util.*;
 
 /**
@@ -12,7 +14,7 @@ public class Section {
 
     private String sectionName;
     private List<SectionData> sectionData;
-    private static List<Section> sections = new ArrayList<>();
+    private static List<Section> sections = FXCollections.observableArrayList();
 
     /**
      * Constructor for the NoGui.Section Object.
@@ -58,5 +60,9 @@ public class Section {
      */
     public List<SectionData> getSectionData() {
         return sectionData;
+    }
+
+    public void sortSectionData() {
+        sectionData.sort(Comparator.comparing(SectionData::getKey));
     }
 }

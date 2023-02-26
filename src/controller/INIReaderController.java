@@ -121,8 +121,12 @@ public class INIReaderController {
     }
 
     @FXML
-    protected void btnDeleteSectionClick() {
+    protected void btnDeleteSectionClick() throws IOException {
         reader.deleteSection();
+        if (Section.getSections().size() != 0){
+            reader.getController().getLvSection().getSelectionModel().select(Section.getSections().get(0));
+            reader.addKeyValueToListView();
+        }
     }
 
     @FXML
@@ -139,7 +143,6 @@ public class INIReaderController {
         changeStage.show();
 
         INIReaderApplication.makeWindowMoveable(addKeyValueScene.getRoot(), changeStage);
-        ;
         INIReaderApplication.setStageCenter(changeStage);
         mainScene.getRoot().setEffect(Util.BLURRFACTOR);
     }

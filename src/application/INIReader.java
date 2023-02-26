@@ -1,6 +1,13 @@
 package application;
 
+import controller.DialogController;
 import controller.INIReaderController;
+import javafx.collections.FXCollections;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 import model.Section;
 import model.SectionData;
 import util.Util;
@@ -56,6 +63,7 @@ public class INIReader {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        readFile();
     }
 
     //TODO: Are files different is not working while using bigger files
@@ -96,7 +104,7 @@ public class INIReader {
     private void createObjects() {
         String section = "";
         String comment = "";
-        List<SectionData> dataList = new ArrayList<>();
+        List<SectionData> dataList = FXCollections.observableArrayList();
         for (String line : iniFile) {
             line = line.trim();
             if (line.startsWith("[") && line.endsWith("]")) {
@@ -139,33 +147,46 @@ public class INIReader {
         List<SectionData> sectionData = section.getSectionData();
 
         controller.getLvKeyValue().getItems().clear();
-
+        section.sortSectionData();
         for (SectionData data : sectionData) {
             controller.getLvKeyValue().getItems().add(data);
         }
+
     }
 
-    public void addSection(String text) {
+    public Section addSection(String text) {
         List<SectionData> sectionList = new ArrayList<>();
-        new Section(text.substring(0, 1).toUpperCase() + text.substring(1), sectionList);
+        Section newSection = new Section(text.substring(0, 1).toUpperCase() + text.substring(1), sectionList);
         addSectionsToListView();
+        return newSection;
     }
 
-    public void deleteSection() {
+    public void deleteSection() throws IOException {
         Section section = (Section) controller.getLvSection().getSelectionModel().getSelectedItem();
-        Section.getSections().remove(section);
+        if (Section.getSections().size() > 1){
+            Section.getSections().remove(section);
+        } else {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Cant Remove last Section");
+            alert.setHeaderText("Last Section cant be removed");
+            alert.setContentText("The file cant be empty!");
+
+            alert.showAndWait();
+        }
         addSectionsToListView();
     }
 
-    public void updateSection(String updatetSectionName) {
+    public Section updateSection(String updatetSectionName) {
         Section section = (Section) controller.getLvSection().getSelectionModel().getSelectedItem();
         section.setSectionName(updatetSectionName.substring(0, 1).toUpperCase() + updatetSectionName.substring(1));
         addSectionsToListView();
+        return section;
     }
 
     public void addKeyValue(String key, String value, String comment) {
         Section section = (Section) controller.getLvSection().getSelectionModel().getSelectedItem();
-        section.getSectionData().add(new SectionData(key, value, comment));
+        section.getSectionData().add(new SectionData(key.substring(0,1).toUpperCase() + key.substring(1), value, comment));
+        section.sortSectionData();
         addKeyValueToListView();
     }
 
@@ -177,11 +198,16 @@ public class INIReader {
     }
 
     public void updateKeyValue(String key, String value, String comment) {
+        Section section = (Section) controller.getLvSection().getSelectionModel().getSelectedItem();
         SectionData sectionData = (SectionData) controller.getLvKeyValue().getSelectionModel().getSelectedItem();
-        sectionData.setKey(key);
+        sectionData.setKey(key.substring(0,1).toUpperCase() + key.substring(1));
         sectionData.setValue(value);
         sectionData.setComment(comment);
+        section.sortSectionData();
         addKeyValueToListView();
     }
 
+    public INIReaderController getController() {
+        return controller;
+    }
 }

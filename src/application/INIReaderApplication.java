@@ -21,10 +21,6 @@ public class INIReaderApplication extends Application {
     public static FXMLLoader fxmlMain;
     public static Stage secondStage;
 
-    public static void main(String[] args) {
-        launch();
-    }
-
     @Override
     public void start(Stage primaryStage) throws IOException {
 

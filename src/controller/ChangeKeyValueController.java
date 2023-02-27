@@ -50,10 +50,11 @@ public class ChangeKeyValueController {
     }
 
     public void btnChangeClick() {
-        reader.updateKeyValue(tfKey.getText(), tfValue.getText(), tfaComment.getText());
-        Stage stage = (Stage) btnClose.getScene().getWindow();
-        Scene mainScene = INIReaderApplication.mainScene;
-        stage.close();
-        mainScene.getRoot().setEffect(null);
+        if (!reader.updateKeyValue(tfKey.getText(), tfValue.getText(), tfaComment.getText())){
+            Stage stage = (Stage) btnClose.getScene().getWindow();
+            Scene mainScene = INIReaderApplication.mainScene;
+            stage.close();
+            mainScene.getRoot().setEffect(null);
+        }
     }
 }

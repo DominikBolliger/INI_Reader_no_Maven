@@ -30,11 +30,12 @@ public class AddKeyValueController {
 
     @FXML
     protected void btnAddKeyValueClick(){
-        reader.addKeyValue(tfKey.getText(), tfValue.getText(), taComment.getText());
-        Stage stage = (Stage) btnClose.getScene().getWindow();
-        Scene mainScene = INIReaderApplication.mainScene;
-        stage.close();
-        mainScene.getRoot().setEffect(null);
+        if (!reader.addKeyValue(tfKey.getText(), tfValue.getText(), taComment.getText())) {
+            Stage stage = (Stage) btnClose.getScene().getWindow();
+            Scene mainScene = INIReaderApplication.mainScene;
+            stage.close();
+            mainScene.getRoot().setEffect(null);
+        }
     }
 
     public void setReader(INIReader reader) {

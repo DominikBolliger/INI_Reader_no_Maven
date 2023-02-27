@@ -32,12 +32,14 @@ public class AddSectionController {
     @FXML
     protected void btnAddSectionClick() {
         Section newSection = reader.addSection(tfAddSection.getText());
-        Stage stage = (Stage) btnClose.getScene().getWindow();
-        Scene mainScene = INIReaderApplication.mainScene;
-        stage.close();
-        mainScene.getRoot().setEffect(null);
-        reader.getController().getLvSection().getSelectionModel().select(newSection);
-        reader.addKeyValueToListView();
+        if (newSection != null) {
+            Stage stage = (Stage) btnClose.getScene().getWindow();
+            Scene mainScene = INIReaderApplication.mainScene;
+            stage.close();
+            mainScene.getRoot().setEffect(null);
+            reader.getController().getLvSection().getSelectionModel().select(newSection);
+            reader.addKeyValueToListView();
+        }
     }
 
     @FXML

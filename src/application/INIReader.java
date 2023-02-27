@@ -1,13 +1,8 @@
 package application;
 
-import controller.DialogController;
 import controller.INIReaderController;
 import javafx.collections.FXCollections;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.paint.Color;
-import javafx.stage.Stage;
 import model.Section;
 import model.SectionData;
 import util.Util;
@@ -145,7 +140,6 @@ public class INIReader {
     public void addKeyValueToListView() {
         Section section = (Section) controller.getLvSection().getSelectionModel().getSelectedItem();
         List<SectionData> sectionData = section.getSectionData();
-
         controller.getLvKeyValue().getItems().clear();
         section.sortSectionData();
         for (SectionData data : sectionData) {
@@ -155,22 +149,46 @@ public class INIReader {
     }
 
     public Section addSection(String text) {
-        List<SectionData> sectionList = new ArrayList<>();
-        Section newSection = new Section(text.substring(0, 1).toUpperCase() + text.substring(1), sectionList);
-        addSectionsToListView();
+        List<SectionData> sectionDataList = new ArrayList<>();
+        List<Section> sectionList = Section.getSections();
+        Section newSection = null;
+        boolean sectionAlreadyExists = false;
+        if (text.matches("[a-zA-Z0-9]*")) {
+            for (Section section : sectionList) {
+                if (section.getSectionName().equalsIgnoreCase(text)) {
+                    sectionAlreadyExists = true;
+                    break;
+                }
+            }
+            if (!sectionAlreadyExists) {
+                newSection = new Section(text.substring(0, 1).toUpperCase() + text.substring(1), sectionDataList);
+                addSectionsToListView();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Section Not Unique");
+                alert.setHeaderText("The Section " + text + " already exists..");
+                alert.setContentText("Please choose a Unique Section Name!");
+                alert.showAndWait();
+            }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Not Allowed Characters");
+            alert.setHeaderText("The Section Name: " + text + " consists not allowed characters");
+            alert.setContentText("Please only use letters or numbers as value");
+            alert.showAndWait();
+        }
         return newSection;
     }
 
-    public void deleteSection() throws IOException {
+    public void deleteSection() {
         Section section = (Section) controller.getLvSection().getSelectionModel().getSelectedItem();
-        if (Section.getSections().size() > 1){
+        if (Section.getSections().size() > 1) {
             Section.getSections().remove(section);
         } else {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Cant Remove last Section");
             alert.setHeaderText("Last Section cant be removed");
             alert.setContentText("The file cant be empty!");
-
             alert.showAndWait();
         }
         addSectionsToListView();
@@ -178,16 +196,67 @@ public class INIReader {
 
     public Section updateSection(String updatetSectionName) {
         Section section = (Section) controller.getLvSection().getSelectionModel().getSelectedItem();
-        section.setSectionName(updatetSectionName.substring(0, 1).toUpperCase() + updatetSectionName.substring(1));
-        addSectionsToListView();
+        List<Section> sectionList = Section.getSections();
+        boolean sectionAlreadyExists = false;
+        if (updatetSectionName.matches("[a-zA-Z0-9]*")) {
+            for (Section tempSection : sectionList) {
+                if (tempSection.getSectionName().equalsIgnoreCase(updatetSectionName)) {
+                    sectionAlreadyExists = true;
+                }
+            }
+            if (!sectionAlreadyExists) {
+                section.setSectionName(updatetSectionName.substring(0, 1).toUpperCase() + updatetSectionName.substring(1));
+                addSectionsToListView();
+            } else {
+                if (sectionAlreadyExists) {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Section Not Unique");
+                    alert.setHeaderText("The Section " + updatetSectionName + " already exists..");
+                    alert.setContentText("Please choose a Unique Section Name or change the Value from the original one!");
+                    alert.showAndWait();
+                    section = null;
+                }
+            }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Not Allowed Characters");
+            alert.setHeaderText("The Section Name: " + updatetSectionName + " consists not allowed characters");
+            alert.setContentText("Please only use letters or numbers as value");
+            alert.showAndWait();
+        }
         return section;
     }
 
-    public void addKeyValue(String key, String value, String comment) {
+    public boolean addKeyValue(String key, String value, String comment) {
         Section section = (Section) controller.getLvSection().getSelectionModel().getSelectedItem();
-        section.getSectionData().add(new SectionData(key.substring(0,1).toUpperCase() + key.substring(1), value, comment));
-        section.sortSectionData();
-        addKeyValueToListView();
+        List<SectionData> sectionDataList = section.getSectionData();
+        boolean keyAlreadyExistsOrStringContainsFalseChars = false;
+        if (key.matches("[a-zA-Z0-9]*") && value.matches("[a-zA-Z0-9]*") && comment.matches("[a-zA-Z0-9]*")) {
+            for (SectionData data : sectionDataList) {
+                if (data.getKey().equalsIgnoreCase(key)) {
+                    keyAlreadyExistsOrStringContainsFalseChars = true;
+                }
+            }
+            if (!keyAlreadyExistsOrStringContainsFalseChars) {
+                section.getSectionData().add(new SectionData(key.substring(0, 1).toUpperCase() + key.substring(1), value, comment));
+                section.sortSectionData();
+                addKeyValueToListView();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Key Not Unique");
+                alert.setHeaderText("The Key " + key + " already exists..");
+                alert.setContentText("Please choose a Unique Key Name!");
+                alert.showAndWait();
+            }
+        } else {
+            keyAlreadyExistsOrStringContainsFalseChars = true;
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Not Allowed Characters");
+            alert.setHeaderText("One of your Values consists not allowed characters");
+            alert.setContentText("Please only use letters or numbers as values");
+            alert.showAndWait();
+        }
+        return keyAlreadyExistsOrStringContainsFalseChars;
     }
 
     public void deleteKeyValue() {
@@ -197,14 +266,39 @@ public class INIReader {
         addKeyValueToListView();
     }
 
-    public void updateKeyValue(String key, String value, String comment) {
+    public boolean updateKeyValue(String key, String value, String comment) {
         Section section = (Section) controller.getLvSection().getSelectionModel().getSelectedItem();
         SectionData sectionData = (SectionData) controller.getLvKeyValue().getSelectionModel().getSelectedItem();
-        sectionData.setKey(key.substring(0,1).toUpperCase() + key.substring(1));
-        sectionData.setValue(value);
-        sectionData.setComment(comment);
-        section.sortSectionData();
-        addKeyValueToListView();
+        List<SectionData> sectionDataList = section.getSectionData();
+        boolean keyAlreadyExistsOrStringContainsFalseChars = false;
+        if (key.matches("[a-zA-Z0-9]*") && value.matches("[a-zA-Z0-9]*") && comment.matches("[a-zA-Z0-9]*")) {
+            for (SectionData data : sectionDataList) {
+                if (data.getKey().equalsIgnoreCase(key)) {
+                    keyAlreadyExistsOrStringContainsFalseChars = true;
+                }
+            }
+            if (!keyAlreadyExistsOrStringContainsFalseChars) {
+                sectionData.setKey(key.substring(0, 1).toUpperCase() + key.substring(1));
+                sectionData.setValue(value);
+                sectionData.setComment(comment);
+                section.sortSectionData();
+                addKeyValueToListView();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Key Not Unique");
+                alert.setHeaderText("The Key " + key + " already exists..");
+                alert.setContentText("Please choose a Unique Key Name or change the Value from the original one!");
+                alert.showAndWait();
+            }
+        } else {
+            keyAlreadyExistsOrStringContainsFalseChars = true;
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Not Allowed Characters");
+            alert.setHeaderText("One of your Values consists not allowed characters");
+            alert.setContentText("Please only use letters or numbers as values");
+            alert.showAndWait();
+        }
+        return keyAlreadyExistsOrStringContainsFalseChars;
     }
 
     public INIReaderController getController() {

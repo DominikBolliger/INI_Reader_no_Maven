@@ -1,4 +1,4 @@
-package application;
+package logic;
 
 import controller.INIReaderController;
 import javafx.collections.FXCollections;
@@ -6,13 +6,11 @@ import javafx.scene.control.Alert;
 import model.Section;
 import model.SectionData;
 import util.Util;
-
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class INIReader {
-
 
     private List<String> iniFile;
     private List<String> newFile;
@@ -24,12 +22,18 @@ public class INIReader {
         this.controller = controller;
     }
 
+    /**
+     * Start Function
+     */
     public void start() {
         readFile();
         createObjects();
         addSectionsToListView();
     }
 
+    /**
+     * Reads the ini file and puts all the lines into a List
+     */
     private void readFile() {
         try {
             BufferedReader br = new BufferedReader(new FileReader(path));
@@ -47,6 +51,9 @@ public class INIReader {
         }
     }
 
+    /**
+     * Overwrites the ini file so save it.
+     */
     public void saveFile() {
         try {
             FileWriter writer = new FileWriter(path, false);
@@ -61,8 +68,11 @@ public class INIReader {
         readFile();
     }
 
-    //TODO: Are files different is not working while using bigger files
-
+    /**
+     * Checks if there has been any changes to the values before saving it.
+     *
+     * @return
+     */
     public boolean areFilesDifferent() {
         boolean hasChanged = false;
         createNewFile();
@@ -72,6 +82,9 @@ public class INIReader {
         return hasChanged;
     }
 
+    /**
+     * Creates a newFile to check if the files are different before saving it.
+     */
     private void createNewFile() {
         newFile = new ArrayList<>();
         List<Section> sections = Section.getSections();
@@ -95,7 +108,9 @@ public class INIReader {
         }
     }
 
-
+    /**
+     * Creates Objects out of the ini file that was read at start.
+     */
     private void createObjects() {
         String section = "";
         String comment = "";
@@ -116,7 +131,7 @@ public class INIReader {
                 }
                 String[] splitLine = line.split("=");
                 try {
-                    dataList.add(new SectionData(splitLine[0], splitLine[1], comment));
+                    dataList.add(new SectionData(splitLine[0].substring(0, 1).toUpperCase() + splitLine[0].substring(1), splitLine[1], comment));
                 } catch (Exception e) {
                     System.out.println(line);
                     System.out.println(e);
@@ -127,6 +142,9 @@ public class INIReader {
         new Section(section, dataList);
     }
 
+    /**
+     * Adds all the Section in to the ListView
+     */
     public void addSectionsToListView() {
         List<Section> sectionList = Section.getSections();
 
@@ -137,6 +155,9 @@ public class INIReader {
         }
     }
 
+    /**
+     * Adds all the Key+value pairs in to the ListView
+     */
     public void addKeyValueToListView() {
         Section section = (Section) controller.getLvSection().getSelectionModel().getSelectedItem();
         List<SectionData> sectionData = section.getSectionData();
@@ -148,6 +169,12 @@ public class INIReader {
 
     }
 
+    /**
+     * Adds a new Section to the Section List
+     *
+     * @param text
+     * @return
+     */
     public Section addSection(String text) {
         List<SectionData> sectionDataList = new ArrayList<>();
         List<Section> sectionList = Section.getSections();
@@ -180,6 +207,9 @@ public class INIReader {
         return newSection;
     }
 
+    /**
+     * Deletes a Sectionh from the Section List
+     */
     public void deleteSection() {
         Section section = (Section) controller.getLvSection().getSelectionModel().getSelectedItem();
         if (Section.getSections().size() > 1) {
@@ -194,6 +224,12 @@ public class INIReader {
         addSectionsToListView();
     }
 
+    /**
+     * Updates an existing Section
+     *
+     * @param updatetSectionName
+     * @return
+     */
     public Section updateSection(String updatetSectionName) {
         Section section = (Section) controller.getLvSection().getSelectionModel().getSelectedItem();
         List<Section> sectionList = Section.getSections();
@@ -227,6 +263,14 @@ public class INIReader {
         return section;
     }
 
+    /**
+     * Adds a new Key Value to the SectionData List of a Section
+     *
+     * @param key
+     * @param value
+     * @param comment
+     * @return
+     */
     public boolean addKeyValue(String key, String value, String comment) {
         Section section = (Section) controller.getLvSection().getSelectionModel().getSelectedItem();
         List<SectionData> sectionDataList = section.getSectionData();
@@ -259,6 +303,9 @@ public class INIReader {
         return keyAlreadyExistsOrStringContainsFalseChars;
     }
 
+    /**
+     * Deletes a Key+Value pari froma given Section
+     */
     public void deleteKeyValue() {
         Section section = (Section) controller.getLvSection().getSelectionModel().getSelectedItem();
         SectionData sectionData = (SectionData) controller.getLvKeyValue().getSelectionModel().getSelectedItem();
@@ -266,6 +313,14 @@ public class INIReader {
         addKeyValueToListView();
     }
 
+    /**
+     * Updates an existing Key Value to the SectionData List of a Section
+     *
+     * @param key
+     * @param value
+     * @param comment
+     * @return
+     */
     public boolean updateKeyValue(String key, String value, String comment) {
         Section section = (Section) controller.getLvSection().getSelectionModel().getSelectedItem();
         SectionData sectionData = (SectionData) controller.getLvKeyValue().getSelectionModel().getSelectedItem();
@@ -301,6 +356,9 @@ public class INIReader {
         return keyAlreadyExistsOrStringContainsFalseChars;
     }
 
+    /**
+     * Getter's and Setter's'
+     **/
     public INIReaderController getController() {
         return controller;
     }

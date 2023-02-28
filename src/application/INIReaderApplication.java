@@ -17,10 +17,17 @@ public class INIReaderApplication extends Application {
 
     private static double xOffset = 0;
     private static double yOffset = 0;
-    public static Scene mainScene;
-    public static FXMLLoader fxmlMain;
-    public static Stage secondStage;
+    private static Scene mainScene;
+    private static FXMLLoader fxmlMain;
+    private static Stage secondStage;
 
+    /**
+     * @param primaryStage the primary stage for this application, onto which
+     *                     the application scene can be set.
+     *                     Applications may create other stages, if needed, but they will not be
+     *                     primary stages.
+     * @throws IOException
+     */
     @Override
     public void start(Stage primaryStage) throws IOException {
 
@@ -42,12 +49,23 @@ public class INIReaderApplication extends Application {
         setStageCenter(primaryStage);
     }
 
+    /**
+     * Sets any stage given to the center of the Screen
+     *
+     * @param stage the Stage to center
+     */
     public static void setStageCenter(Stage stage) {
         Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
         stage.setX((screenBounds.getWidth() - stage.getWidth()) / 2);
         stage.setY((screenBounds.getHeight() - stage.getHeight()) / 2);
     }
 
+    /**
+     * Makes it possible to move the Stages by clicking and dragging the root node
+     *
+     * @param root         The root node
+     * @param primaryStage The stage
+     */
     public static void makeWindowMoveable(Node root, Stage primaryStage) {
         root.setOnMousePressed(event -> {
             xOffset = event.getSceneX();
@@ -59,4 +77,19 @@ public class INIReaderApplication extends Application {
         });
     }
 
+    /**
+     * Getter's and Setter's'
+     **/
+
+    public static Scene getMainScene() {
+        return mainScene;
+    }
+
+    public static FXMLLoader getFxmlMain() {
+        return fxmlMain;
+    }
+
+    public static Stage getSecondStage() {
+        return secondStage;
+    }
 }

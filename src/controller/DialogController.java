@@ -31,7 +31,44 @@ public class DialogController {
     @FXML
     private VBox vBoxDoubleButton;
 
+    /**
+     * Gets fired when the Save Button is clicked.
+     */
+    public void btnSaveClick() throws IOException {
+        Stage stage = (Stage) btnClose.getScene().getWindow();
+        Scene mainScene = INIReaderApplication.getMainScene();
+        stage.close();
+        mainScene.getRoot().setEffect(null);
+        FXMLLoader loader = INIReaderApplication.getFxmlMain();
+        ((INIReaderController) loader.getController()).saveFile();
+    }
 
+    /**
+     * Gets fired when the Cancel Button is clicked.
+     */
+    public void btnCancelClick() {
+        Stage stage = (Stage) btnClose.getScene().getWindow();
+        Scene mainScene = INIReaderApplication.getMainScene();
+        stage.close();
+        mainScene.getRoot().setEffect(null);
+        FXMLLoader loader = INIReaderApplication.getFxmlMain();
+        Stage mainStage = (Stage) ((INIReaderController) loader.getController()).getBtnClose().getScene().getWindow();
+        mainStage.close();
+    }
+
+    /**
+     * Gets fired when the Close Button is clicked.
+     */
+    public void btnCloseClick() {
+        Stage stage = (Stage) btnClose.getScene().getWindow();
+        Scene mainScene = INIReaderApplication.getMainScene();
+        stage.close();
+        mainScene.getRoot().setEffect(null);
+    }
+
+    /**
+     * Getter's and Setter's'
+     **/
     public void setTitleLabelText(String text) {
         lblTitle.setText(text);
     }
@@ -53,32 +90,6 @@ public class DialogController {
     public void setVBoxSingleButtonVisible(boolean isVisibleAndManaged) {
         vBoxSingleButton.setVisible(isVisibleAndManaged);
         vBoxSingleButton.setManaged(isVisibleAndManaged);
-    }
-
-    public void btnCloseClick() {
-        Stage stage = (Stage) btnClose.getScene().getWindow();
-        Scene mainScene = INIReaderApplication.mainScene;
-        stage.close();
-        mainScene.getRoot().setEffect(null);
-    }
-
-    public void btnSaveClick() throws IOException {
-        Stage stage = (Stage) btnClose.getScene().getWindow();
-        Scene mainScene = INIReaderApplication.mainScene;
-        stage.close();
-        mainScene.getRoot().setEffect(null);
-        FXMLLoader loader = INIReaderApplication.fxmlMain;
-        ((INIReaderController) loader.getController()).saveFile();
-    }
-
-    public void btnCancelClick() {
-        Stage stage = (Stage) btnClose.getScene().getWindow();
-        Scene mainScene = INIReaderApplication.mainScene;
-        stage.close();
-        mainScene.getRoot().setEffect(null);
-        FXMLLoader loader = INIReaderApplication.fxmlMain;
-        Stage mainStage = (Stage) ((INIReaderController) loader.getController()).getBtnClose().getScene().getWindow();
-        mainStage.close();
     }
 
 }

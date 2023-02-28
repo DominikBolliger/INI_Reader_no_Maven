@@ -1,6 +1,6 @@
 package controller;
 
-import application.INIReader;
+import logic.INIReader;
 import application.INIReaderApplication;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -22,32 +22,44 @@ public class AddKeyValueController {
     protected TextArea taComment;
     private INIReader reader;
 
+    /**
+     * Gets called before the stage shows
+     */
     @FXML
     protected void initialize() {
         btnAddKeyValue.disableProperty().bind(tfKey.textProperty().isEmpty().or(tfValue.textProperty().isEmpty()));
         Platform.runLater(() -> tfKey.requestFocus());
     }
 
+    /**
+     * Gets fired when the Button AddKeyValue is clicked.
+     */
     @FXML
-    protected void btnAddKeyValueClick(){
+    protected void btnAddKeyValueClick() {
         if (!reader.addKeyValue(tfKey.getText(), tfValue.getText(), taComment.getText())) {
             Stage stage = (Stage) btnClose.getScene().getWindow();
-            Scene mainScene = INIReaderApplication.mainScene;
+            Scene mainScene = INIReaderApplication.getMainScene();
             stage.close();
             mainScene.getRoot().setEffect(null);
         }
     }
 
-    public void setReader(INIReader reader) {
-        this.reader = reader;
-    }
-
+    /**
+     * Gets fired when the Close Button is clicked.
+     */
     @FXML
     protected void btnCloseClick() {
         Stage stage = (Stage) btnClose.getScene().getWindow();
-        Scene mainScene = INIReaderApplication.mainScene;
+        Scene mainScene = INIReaderApplication.getMainScene();
         stage.close();
         mainScene.getRoot().setEffect(null);
+    }
+
+    /**
+     * Getter's and Setter's'
+     **/
+    public void setReader(INIReader reader) {
+        this.reader = reader;
     }
 
 }

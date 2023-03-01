@@ -260,6 +260,7 @@ public class INIReader {
             alert.setHeaderText("The Section Name: " + updatetSectionName + " consists not allowed characters");
             alert.setContentText("Please only use letters or numbers as value");
             alert.showAndWait();
+            section = null;
         }
         return section;
     }

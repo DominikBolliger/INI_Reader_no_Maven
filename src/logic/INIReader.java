@@ -6,6 +6,7 @@ import javafx.scene.control.Alert;
 import model.Section;
 import model.SectionData;
 import util.Util;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -275,7 +276,7 @@ public class INIReader {
         Section section = (Section) controller.getLvSection().getSelectionModel().getSelectedItem();
         List<SectionData> sectionDataList = section.getSectionData();
         boolean keyAlreadyExistsOrStringContainsFalseChars = false;
-        if (key.matches("[a-zA-Z0-9]*") && value.matches("[a-zA-Z0-9]*") && comment.matches("[a-zA-Z0-9]*")) {
+        if (key.matches("[a-zA-Z0-9]*") && !value.startsWith("#") && !comment.startsWith("#")) {
             for (SectionData data : sectionDataList) {
                 if (data.getKey().equalsIgnoreCase(key)) {
                     keyAlreadyExistsOrStringContainsFalseChars = true;
@@ -324,36 +325,22 @@ public class INIReader {
     public boolean updateKeyValue(String key, String value, String comment) {
         Section section = (Section) controller.getLvSection().getSelectionModel().getSelectedItem();
         SectionData sectionData = (SectionData) controller.getLvKeyValue().getSelectionModel().getSelectedItem();
-        List<SectionData> sectionDataList = section.getSectionData();
-        boolean keyAlreadyExistsOrStringContainsFalseChars = false;
-        if (key.matches("[a-zA-Z0-9]*") && value.matches("[a-zA-Z0-9]*") && comment.matches("[a-zA-Z0-9]*")) {
-            for (SectionData data : sectionDataList) {
-                if (data.getKey().equalsIgnoreCase(key)) {
-                    keyAlreadyExistsOrStringContainsFalseChars = true;
-                }
-            }
-            if (!keyAlreadyExistsOrStringContainsFalseChars) {
-                sectionData.setKey(key.substring(0, 1).toUpperCase() + key.substring(1));
-                sectionData.setValue(value);
-                sectionData.setComment(comment);
-                section.sortSectionData();
-                addKeyValueToListView();
-            } else {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Key Not Unique");
-                alert.setHeaderText("The Key " + key + " already exists..");
-                alert.setContentText("Please choose a Unique Key Name or change the Value from the original one!");
-                alert.showAndWait();
-            }
+        boolean keyContainsFalseChars = false;
+        if (key.substring(0,1).matches("[a-zA-Z0-9]*") && !value.startsWith("#") && !comment.startsWith("#")) {
+            sectionData.setKey(key.substring(0, 1).toUpperCase() + key.substring(1));
+            sectionData.setValue(value);
+            sectionData.setComment(comment);
+            section.sortSectionData();
+            addKeyValueToListView();
         } else {
-            keyAlreadyExistsOrStringContainsFalseChars = true;
+            keyContainsFalseChars = true;
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Not Allowed Characters");
             alert.setHeaderText("One of your Values consists not allowed characters");
             alert.setContentText("Please only use letters or numbers as values");
             alert.showAndWait();
         }
-        return keyAlreadyExistsOrStringContainsFalseChars;
+        return keyContainsFalseChars;
     }
 
     /**
